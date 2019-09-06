@@ -1,7 +1,4 @@
 # CIS163Project1
-CIS 163 Project 1 
-package project1;
-
 public class GeoCountDownTimer {
 
     //instance variables
@@ -156,11 +153,256 @@ public class GeoCountDownTimer {
     }
 
     /****************************************************************************************************
-     * Method that substracts the number of days and adjusts the timer date down the correct number of days
+     * Method that subtracts the number of days and adjusts the timer date down the correct number of days
+     * calls the dec() method
      * @param days
      ****************************************************************************************************/
+    public void dec(int days) {
+        for(int i = days; i > 0; i--) {
+            dec();
+        }
+    }
 
-   /****************************************************************************************************
+    /*****************************************************************************************************
+     * Method that subtracts 1 day from this GeoCountDownTimer object
+     *****************************************************************************************************/
+    public void dec() {
+
+        //months of the year that contain 30 days
+        if(this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11) {
+
+            //if the day of the month is 1, roll over months
+            if(this.day == 1) {
+                this.day = 31;
+                this.month--;
+            }
+
+            //if day of the month is greater than 1, subtract 1 from day
+            else {
+                if(this.day > 1) {
+                    this.day--;
+                }
+            }
+        }
+
+        //months of the year that contain 31 days excluding March, including Feb for calculation
+        else if(this.month == 1 || this.month == 2 || this.month == 5 || this.month == 7 ||
+                this.month == 8 || this.month == 10 || this.month == 12) {
+
+            //if the day is the first of the month
+            if(this.day == 1) {
+
+                //if the month is 1(Jan), roll over year and set new day and month and year
+                if (this.month == 1) {
+                    this.month = 12;
+                    this.day = 31;
+                    this.year--;
+
+                    //if it is July or Feb, set the days equal to 31
+                } else if (this.month == 8 || this.month == 2) {
+                    this.month--;
+                    this.day = 31;
+
+                //set the days equal to 30
+                } else {
+                    this.day = 30;
+                    this.month--;
+                }
+            }
+
+            //if the day is greater than the first of the month
+            else {
+                if(this.day > 1) {
+                    this.day--;
+                }
+            }
+        }
+
+        //if it is March
+        else if(this.month == 3){
+
+            //if it is not leap year
+            if(this.year % 4 != 0) {
+
+               //if it is the first day, roll over to 28 days in Feb
+                if(this.day == 1) {
+                    this.day = 28;
+                    this.month--;
+                }
+                else{
+                    if(this.day > 1) {
+                        this.day--;
+                    }
+                }
+            }
+            else {
+
+               //if it is leap year
+                if(this.day == 1) {
+                    this.day = 29;
+                    this.month--;
+                }
+                else {
+                    if(this.day > 1) {
+                        this.day--;
+                    }
+                }
+            }
+        }
+    }
+
+    /*****************************************************************************************************
+     * Method that adds the number of days to the GeoCountDownTimer Object by calling inc() method
+     * @param days
+     *****************************************************************************************************/
+    public void inc(int days) {
+        for(int i = days; i > 0; i--) {
+            inc();
+        }
+    }
+
+    /*****************************************************************************************************
+     *Method that adds 1 day to the GeoCountDownTimer object
+     *****************************************************************************************************/
+    public void inc() {
+
+        //months of the year that contain 30 days
+        if(this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11) {
+
+            //if the day of the month is 30, add 1 to the month and reset day to 1
+            if(this.day == 30) {
+                this.day = 1;
+                this.month++;
+            }
+
+            //if the day of the month is not 30
+            else {
+                if(this.day < 30) {
+                    this.day++;
+                }
+            }
+        }
+
+        //days of the month that contain 31 days
+        else if(this.month == 1 || this.month == 3 || this.month == 5 || this.month == 7 || this.month == 8 ||
+        this.month == 10 || this.month == 12) {
+
+            //if the day of the month is 31 reset day to 1 and increase the month by 1
+            if(this.day == 31) {
+
+               //if it is December, roll over year and reset month and day to 1
+                if(this.month == 12) {
+                    this.month = 1;
+                    this.day = 1;
+                    this.year++;
+                }
+                else {
+                    this.day = 1;
+                    this.month++;
+                }
+
+             //if the day is less than 31
+            } else {
+                if(this.day < 31) {
+                    this.day++;
+                }
+            }
+
+         //if the month is February
+        } else if(this.month == 2) {
+
+            //if it is not leap year
+            if(this.year % 4 != 0) {
+               if(this.day == 28) {
+                   this.day = 1;
+                   this.month++;
+               }
+               else {
+                   if(this.day < 28) {
+                       this.day++;
+                   }
+               }
+            }
+
+            //if it is leap year
+            else {
+                if(this.day == 29) {
+                    this.day = 1;
+                    this.month++;
+                }
+                else {
+                    if(this.day < 29) {
+                        this.day++;
+                    }
+                }
+            }
+        }
+    }
+
+    /*****************************************************************************************************
+     *toString() method that outputs date in Month day, year format
+     * @return String fullDate
+     *****************************************************************************************************/
+    public String toString() {
+        String strMonth = "";
+
+        //naming months
+        if(this.month == 1) {
+            strMonth = "January";
+        }
+        else if(this.month == 2) {
+            strMonth = "February";
+        }
+        else if(this.month == 3) {
+            strMonth = "March";
+        }
+        else if(this.month == 4){
+            strMonth = "April";
+        }
+        else if(this.month == 5) {
+            strMonth = "May";
+        }
+        else if(this.month == 6) {
+            strMonth = "June";
+        }
+        else if(this.month == 7) {
+            strMonth = "July";
+        }
+        else if(this.month == 8) {
+            strMonth = "August";
+        }
+        else if(this.month == 9) {
+            strMonth = "September";
+        }
+        else if(this.month == 10) {
+            strMonth = "October";
+        }
+        else if(this.month == 11) {
+            strMonth = "November";
+        }
+        else if(this.month == 12) {
+            strMonth = "December";
+        }
+
+        //creating the full string
+        String fullDate = strMonth + " " + this.day + ", " + this.year;
+
+        //return statement
+        return fullDate;
+    }
+
+    /*****************************************************************************************************
+     * toDateString() method prints date in month/day/year format
+     * @return String date
+     *****************************************************************************************************/
+    public String toDateString() {
+        String date;
+        date = this.month + "/" + this.day + "/" + this.year;
+
+        return date;
+    }
+
+   /******************************************************************************************************
      * Getter method for int day
      * @return int days
      ****************************************************************************************************/
@@ -211,3 +453,5 @@ public class GeoCountDownTimer {
 
 
 }
+
+
