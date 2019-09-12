@@ -1,10 +1,22 @@
 # CIS163Project1
-public class GeoCountDownTimer {
+package project1;
+import java.io.*;
+import java.util.Scanner;
 
-    //instance variables
-    private int year;
-    private int month;
-    private int day;
+
+    /*********************************************************************
+    *
+     * CIS 163 01
+    *
+    * @author Keilani Bailey & Shayla Hinkley
+    *@version 1.0
+    ********************************************************************/
+    public class GeoCountDownTimer {
+       //instance variables
+        private int year;
+        private int month;
+        private int day;
+        private static final int MINYEAR = 2019;
 
     /****************************************************************************************************
      * Private constructor that sets GeoCountDownTimer to zero
@@ -13,6 +25,45 @@ public class GeoCountDownTimer {
         year = 0;
         month = 0;
         day = 0;
+    }
+
+    /***************************************************************************************************
+     * Prevents someone from starting new GeoCountDownTimer Object
+     **************************************************************************************************/
+    private static boolean mutate = true;
+
+    /***************************************************************************************************
+     * Final array list of type int method for days in the month
+     ***************************************************************************************************/
+    // Days in each month (assuming months are numbered beginning with 1)
+    private static final int[] DAYS_IN_MONTH = {0, 31, 28, 31, 30, 31, 30, 31,
+            31, 30, 31, 30, 31};
+
+    /***************************************************************************************************
+     *Final array list of type String method for names of months
+     ***************************************************************************************************/
+    private static final String[] MONTHS = {"", "January", "February",
+            "March", "April", "May", "June", "July", "August", "September",
+            "October", "November", "December"};
+
+    /***************************************************************************************************
+     * Method that checks if input is valid date
+     * @param month
+     * @param day
+     * @param year
+     * @return
+     ***************************************************************************************************/
+    private static boolean isValidDate(int month, int day, int year) {
+        return true;
+    }
+
+    /***************************************************************************************************
+     * Method that checks if it is a leap year
+     * @param year
+     * @return true
+     ***************************************************************************************************/
+    public static boolean isLeapYear(int year) {
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
     /****************************************************************************************************
@@ -42,8 +93,8 @@ public class GeoCountDownTimer {
     /*****************************************************************************************************
      * Constructor that accepts a string as a parameter
      *****************************************************************************************************/
-    public GeoCountDownTimer(String geoDate) {
-        String date = geoDate;
+    public GeoCountDownTimer(String startDate) {
+        String date = startDate;
         String yr = "";
         String mon = "";
         String dy = "";
@@ -52,22 +103,31 @@ public class GeoCountDownTimer {
         int x = 0;
 
         //finds first index of '/' for month
-        z = geoDate.indexOf('/');
+        z = startDate.indexOf('/');
 
         //creates month substring from index 0 up until index of '/'
-        mon = geoDate.substring(0, z);
+        mon = startDate.substring(0, z);
 
         //looks for second index of '/' after the first known index of '/'
-        y = geoDate.indexOf('/', z);
+        y = startDate.indexOf('/', z);
 
         //creates day substring from first index of '/' until the second index of '/'
-        dy = geoDate.substring(z, y);
+        dy = startDate.substring(z, y);
 
         //creates year substring from second known index of '/' to the end of the string
-        yr = geoDate.substring(y, geoDate.length());
+        yr = startDate.substring(y, startDate.length());
     }
 
-
+    /*****************************************************************************************************
+     * Method that checks if two GeoCountDownTimer objects are the same
+     * @param s1
+     * @param s2
+     * @return
+     *****************************************************************************************************/
+    public static boolean equals(GeoCountDownTimer s1, GeoCountDownTimer s2) {
+        return (s2.year == s1.year) && (s2.month == s1.month)
+                && (s2.day == s1.day);
+    }
     /*****************************************************************************************************
      * Method that checks if GeoCountDownTimer object is exactly the same as the other object
      * @param obj
@@ -168,88 +228,33 @@ public class GeoCountDownTimer {
      *****************************************************************************************************/
     public void dec() {
 
-        //months of the year that contain 30 days
-        if(this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11) {
+        int isLeapYear = 0;
 
-            //if the day of the month is 1, roll over months
-            if(this.day == 1) {
-                this.day = 31;
+        //if it is leap year and the month is Match
+        if(isLeapYear(this.year) && this.month == 3) {
+            day = DAYS_IN_MONTH[this.month - 1] + 1;
+        }
+
+        //if it is the first day of the month
+        if (this.day == 1) {
+
+            //if it is January, set day to DAYS_IN_MONTH of December and decrease the year
+            if (this.month == 1) {
+                day = DAYS_IN_MONTH[12];
+                this.year--;
+            }
+
+            //if it is not Jan, set days equal to the DAYS_IN_MONTH of the previous month
+            else {
+                day = DAYS_IN_MONTH[this.month - 1];
                 this.month--;
             }
 
-            //if day of the month is greater than 1, subtract 1 from day
-            else {
-                if(this.day > 1) {
-                    this.day--;
-                }
-            }
-        }
-
-        //months of the year that contain 31 days excluding March, including Feb for calculation
-        else if(this.month == 1 || this.month == 2 || this.month == 5 || this.month == 7 ||
-                this.month == 8 || this.month == 10 || this.month == 12) {
-
-            //if the day is the first of the month
-            if(this.day == 1) {
-
-                //if the month is 1(Jan), roll over year and set new day and month and year
-                if (this.month == 1) {
-                    this.month = 12;
-                    this.day = 31;
-                    this.year--;
-
-                    //if it is July or Feb, set the days equal to 31
-                } else if (this.month == 8 || this.month == 2) {
-                    this.month--;
-                    this.day = 31;
-
-                //set the days equal to 30
-                } else {
-                    this.day = 30;
-                    this.month--;
-                }
-            }
-
-            //if the day is greater than the first of the month
-            else {
-                if(this.day > 1) {
-                    this.day--;
-                }
-            }
-        }
-
-        //if it is March
-        else if(this.month == 3){
-
-            //if it is not leap year
-            if(this.year % 4 != 0) {
-
-               //if it is the first day, roll over to 28 days in Feb
-                if(this.day == 1) {
-                    this.day = 28;
-                    this.month--;
-                }
-                else{
-                    if(this.day > 1) {
-                        this.day--;
-                    }
-                }
-            }
-            else {
-
-               //if it is leap year
-                if(this.day == 1) {
-                    this.day = 29;
-                    this.month--;
-                }
-                else {
-                    if(this.day > 1) {
-                        this.day--;
-                    }
-                }
-            }
+        } else {
+            this.day--;
         }
     }
+
 
     /*****************************************************************************************************
      * Method that adds the number of days to the GeoCountDownTimer Object by calling inc() method
@@ -266,76 +271,26 @@ public class GeoCountDownTimer {
      *****************************************************************************************************/
     public void inc() {
 
-        //months of the year that contain 30 days
-        if(this.month == 4 || this.month == 6 || this.month == 9 || this.month == 11) {
-
-            //if the day of the month is 30, add 1 to the month and reset day to 1
-            if(this.day == 30) {
-                this.day = 1;
-                this.month++;
-            }
-
-            //if the day of the month is not 30
-            else {
-                if(this.day < 30) {
-                    this.day++;
-                }
-            }
+        int daysInMonth = 0;
+        if(isLeapYear(this.year) && this.month == 2) {
+            daysInMonth = DAYS_IN_MONTH[this.month] + 1;
         }
+        else {
+            daysInMonth = DAYS_IN_MONTH[this.month];
+        }
+        if (this.day == daysInMonth) {
 
-        //days of the month that contain 31 days
-        else if(this.month == 1 || this.month == 3 || this.month == 5 || this.month == 7 || this.month == 8 ||
-        this.month == 10 || this.month == 12) {
-
-            //if the day of the month is 31 reset day to 1 and increase the month by 1
-            if(this.day == 31) {
-
-               //if it is December, roll over year and reset month and day to 1
-                if(this.month == 12) {
-                    this.month = 1;
-                    this.day = 1;
-                    this.year++;
-                }
-                else {
-                    this.day = 1;
-                    this.month++;
-                }
-
-             //if the day is less than 31
+            if (this.month == 12) {
+                day = 1;
+                month = 1;
+                this.year++;
             } else {
-                if(this.day < 31) {
-                    this.day++;
-                }
-            }
+                day = 1;
+                month++;
 
-         //if the month is February
-        } else if(this.month == 2) {
-
-            //if it is not leap year
-            if(this.year % 4 != 0) {
-               if(this.day == 28) {
-                   this.day = 1;
-                   this.month++;
-               }
-               else {
-                   if(this.day < 28) {
-                       this.day++;
-                   }
-               }
             }
-
-            //if it is leap year
-            else {
-                if(this.day == 29) {
-                    this.day = 1;
-                    this.month++;
-                }
-                else {
-                    if(this.day < 29) {
-                        this.day++;
-                    }
-                }
-            }
+        } else {
+            this.day++;
         }
     }
 
@@ -344,51 +299,8 @@ public class GeoCountDownTimer {
      * @return String fullDate
      *****************************************************************************************************/
     public String toString() {
-        String strMonth = "";
-
-        //naming months
-        if(this.month == 1) {
-            strMonth = "January";
-        }
-        else if(this.month == 2) {
-            strMonth = "February";
-        }
-        else if(this.month == 3) {
-            strMonth = "March";
-        }
-        else if(this.month == 4){
-            strMonth = "April";
-        }
-        else if(this.month == 5) {
-            strMonth = "May";
-        }
-        else if(this.month == 6) {
-            strMonth = "June";
-        }
-        else if(this.month == 7) {
-            strMonth = "July";
-        }
-        else if(this.month == 8) {
-            strMonth = "August";
-        }
-        else if(this.month == 9) {
-            strMonth = "September";
-        }
-        else if(this.month == 10) {
-            strMonth = "October";
-        }
-        else if(this.month == 11) {
-            strMonth = "November";
-        }
-        else if(this.month == 12) {
-            strMonth = "December";
-        }
-
-        //creating the full string
-        String fullDate = strMonth + " " + this.day + ", " + this.year;
-
-        //return statement
-        return fullDate;
+        String s = MONTHS[this.month] + " " + this.day + ", " + this.year;
+        return s;
     }
 
     /*****************************************************************************************************
@@ -450,8 +362,49 @@ public class GeoCountDownTimer {
         this.year = year;
     }
 
+    /****************************************************************************************************
+     * Method that saves a date
+     * @param filename
+     ****************************************************************************************************/
+    public void save(String filename) {
+
+        PrintWriter out = null;
+        try {
+            out = new PrintWriter(new BufferedWriter(new FileWriter(
+                    filename)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        out.println (month);
+        out.println (day);
+        out.println (year);
+
+        out.close();
+    }
+
+    /*************************************************************************************************
+     * Main method
+     * @param args
+     *************************************************************************************************/
+    public static void main(String[] args) {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/10/2020");
+        System.out.println("Date: " + s);
+
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/10/2022");
+        System.out.println("Date: " + s1.toString());
+
+        s1.dec(365);
+        System.out.println("Date: " + s1);
+
+        GeoCountDownTimer s2 = new GeoCountDownTimer("2/10/2019");
+        for (int i = 0; i < (365 + 366 ); i++)
+            s2.inc(1);
+        System.out.println("Date: " + s2);
+
+        // Create many more test cases in this driver method to
+        // prove the class is functioning correctly.
 
 
+    }
 }
-
-
