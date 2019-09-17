@@ -1,7 +1,5 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.Scanner;
 
 /*********************************************************************
  *
@@ -382,6 +380,29 @@ public class GeoCountDownTimer {
         out.close();
     }
 
+    public void load(String fileName)
+    {
+        int year, day, month;
+
+        try{
+            // open the data file
+            Scanner fileReader = new Scanner(new File(fileName));
+
+            // read one String in of data and an int
+            month = fileReader.nextInt();
+            day = fileReader.nextInt();
+            year = fileReader.nextInt();
+            System.out.println (month + " " + day + " " + year);
+        }
+
+        // could not find file
+        catch(Exception error) {
+            System.out.println("File not found ");
+        }
+    }
+
+
+
     /*************************************************************************************************
      * Main method
      * @param args
@@ -402,8 +423,7 @@ public class GeoCountDownTimer {
         System.out.println("Date: " + s2);
 
         // Create many more test cases in this driver method to
-        // prove the class is functioning correctly.
-
+        // prove the class is functioning correctly
 
     }
 }
