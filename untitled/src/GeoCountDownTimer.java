@@ -1,13 +1,13 @@
 import java.io.*;
 import java.util.Scanner;
 
-/*********************************************************************
+/**********************************************************************************************************
+ * CIS 163 01 Project One
  *
- * CIS 163 01
- *
- * @author Keilani Bailey & Shayla Hinkley
+ * Creates methods for a GeoCountDownTimer that allows the user to countdown to a specific date
+ *@author Keilani Bailey & Shayla Hinkley
  *@version 1.0
- ********************************************************************/
+ **********************************************************************************************************/
 public class GeoCountDownTimer {
     //instance variables
     private int year;
@@ -51,6 +51,7 @@ public class GeoCountDownTimer {
      * @return
      ***************************************************************************************************/
     private static boolean isValidDate(int month, int day, int year) {
+
         return true;
     }
 
@@ -316,6 +317,7 @@ public class GeoCountDownTimer {
      * @return int days
      ****************************************************************************************************/
     public int getDay() {
+
         return day;
     }
 
@@ -324,6 +326,7 @@ public class GeoCountDownTimer {
      * @param day
      ****************************************************************************************************/
     public void setDay(int day) {
+
         this.day = day;
     }
 
@@ -332,6 +335,7 @@ public class GeoCountDownTimer {
      * @return int month
      ****************************************************************************************************/
     public int getMonth() {
+
         return month;
     }
 
@@ -340,6 +344,7 @@ public class GeoCountDownTimer {
      * @param month
      ****************************************************************************************************/
     public void setMonth(int month) {
+
         this.month = month;
     }
 
@@ -348,6 +353,7 @@ public class GeoCountDownTimer {
      * @return int year
      ****************************************************************************************************/
     public int getYear() {
+
         return year;
     }
 
@@ -356,6 +362,7 @@ public class GeoCountDownTimer {
      * @param year
      ****************************************************************************************************/
     public void setYear(int year) {
+
         this.year = year;
     }
 
