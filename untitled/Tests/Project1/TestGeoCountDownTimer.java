@@ -8,48 +8,44 @@ import static org.junit.Assert.*;
 
 public class TestGeoCountDownTimer {
 
-	@Test
-		public void testConstructor2() {
-		GeoCountDownTimer s = new GeoCountDownTimer("5/10/2015");
-			assertTrue(s.toDateString().equals("5/10/2015"));
+    @Test
+    public void testConstructor2() {
+        GeoCountDownTimer s = new GeoCountDownTimer("5/10/2015");
+        assertTrue(s.toDateString().equals("5/10/2015"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor3() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/29/2015");
+        assertTrue(s.toDateString().equals("2/29/2016"));
+    }
+
+    @Test
+    public void testAddMethod() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(5, 10, 2015);
+        s1.inc(365);
+        System.out.println(s1.toDateString().equals("5/9/2016"));
+        assertTrue(s1.toDateString().equals("5/9/2016"));
+
+        s1 = new GeoCountDownTimer(5, 10, 2016);
+
+		for (int i = 0; i < 365; i++)
+			s1.inc();
+		System.out.println (s1);
+		assertTrue (s1.toDateString().equals("5/10/2017"));
+
+		s1 = new GeoCountDownTimer(5,10,2016);
+
+		System.out.println ("Start:" + s1);
+    	for (int i = 0; i < 31665; i++)
+			s1.inc();
+		System.out.println ("Middle:" + s1);
+
+		for (int i = 0; i < 31665; i++)
+			s1.dec();
+		System.out.println ("End: " + s1);
+
 	}
-//
-//		@Test  (expected = IllegalArgumentException.class)
-//			public void testConstructor3() {
-//				GeoCountDownTimer s = new GeoCountDownTimer("2/29/2015");
-//				assertTrue(s.toDateString().equals("2/29/2016"));
-//
-//				//	Create more, many more tests
-//
-//				}
-//
-//
-//	@Test
-//	public void testAddMethod () {
-//		GeoCountDownTimer s1 = new GeoCountDownTimer(5,10,2015);
-//		s1.inc(365);
-//		System.out.println (s1.toDateString().equals("5/9/2016"));
-//		assertTrue (s1.toDateString().equals("5/9/2016"));
-//
-//		s1 = new GeoCountDownTimer(5,10,2016);
-//
-//		for (int i = 0; i < 365; i++)
-//			s1.inc();
-//		System.out.println (s1);
-//		assertTrue (s1.toDateString().equals("5/10/2017"));
-//
-//		s1 = new GeoCountDownTimer(5,10,2016);
-//
-//		System.out.println ("Start:" + s1);
-//		for (int i = 0; i < 31665; i++)
-//			s1.inc();
-//		System.out.println ("Middle:" + s1);
-//
-//		for (int i = 0; i < 31665; i++)
-//			s1.dec();
-//		System.out.println ("End: " + s1);
-//
-//	}
 //
 //
 //	// must have a separate test for each Exception
@@ -114,47 +110,47 @@ public class TestGeoCountDownTimer {
 //		System.out.println (s1.daysToGo("2/9/2015"));
 //	}
 
-    public void sampleReadData(){
-        int year;
-        int month;
-        int day;
+        public void sampleReadData () {
+            int year;
+            int month;
+            int day;
 
-        try{
-            // open the data file
-            Scanner fileReader = new Scanner(new File("/testit"));
-            Scanner lineReader;
+            try {
+                // open the data file
+                Scanner fileReader = new Scanner(new File("/testit"));
+                Scanner lineReader;
 
-            // read several int for year, month, and day
-            year= fileReader.nextInt();
-            month = fileReader.nextInt();
-            day = fileReader.nextInt();
-            System.out.println (year + " " + month+ " "+ day);
+                // read several int for year, month, and day
+                year = fileReader.nextInt();
+                month = fileReader.nextInt();
+                day = fileReader.nextInt();
+                System.out.println(year + " " + month + " " + day);
+            }
+
+            // could not find file
+            catch (FileNotFoundException error) {
+                System.out.println("File not found ");
+            }
+
+            // problem reading the fil
+            catch (IOException error) {
+                System.out.println("Oops!  Something went wrong.");
+            }
         }
 
-        // could not find file
-        catch(FileNotFoundException error) {
-            System.out.println("File not found ");
+        public void sampleWriteData() {
+            PrintWriter out = null;
+            try {
+                out = new PrintWriter(new BufferedWriter(new FileWriter("/testit")));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String s = "ANCHORAGE";
+            out.println(s + " " + "256000");
+            out.close();
+
         }
 
-        // problem reading the fil
-        catch(IOException error){
-            System.out.println("Oops!  Something went wrong.");
-        }
+
     }
 
-    public void sampleWriteData () {
-        PrintWriter out = null;
-        try {
-            out = new PrintWriter(new BufferedWriter(new FileWriter("/testit")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String s = "ANCHORAGE";
-        out.println(s + " " +  "256000");
-        out.close();
-
-    }
-
-
-
-}
