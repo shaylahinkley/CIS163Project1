@@ -340,7 +340,7 @@ public class GeoCountDownTimer {
     }
 
     /*****************************************************************************************************
-     * Setter method for int month
+     * Setter method for int month33333
      * @param month
      ****************************************************************************************************/
     public void setMonth(int month) {
