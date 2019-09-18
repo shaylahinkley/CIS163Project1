@@ -5,24 +5,14 @@ import java.util.Scanner;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
 public class TestGeoCountDownTimer {
-    //	//@Test
-//	public void testConstructor1() {
-//		GeoCountDownTimer s = new GeoCountDownTimer();
-//		assertEquals(s.toString(),"5/10/2015");
-//
-//	//	Create more, many more tests
-//
-//	}
-//
-//	//@Test
-//		public void testConstructor2() {
-//			GeoCountDownTimer s = new GeoCountDownTimer("5/10/2015");
-//			assertTrue(s.toDateString().equals("5/10/2015"));
-//
-//		//	Create more, many more tests
-//
-//		}
+
+	@Test
+		public void testConstructor2() {
+		GeoCountDownTimer s = new GeoCountDownTimer("5/10/2015");
+			assertTrue(s.toDateString().equals("5/10/2015"));
+	}
 //
 //		@Test  (expected = IllegalArgumentException.class)
 //			public void testConstructor3() {
@@ -165,12 +155,6 @@ public class TestGeoCountDownTimer {
 
     }
 
-    public static void main(String[] args) {
 
-        GeoCountDownTimer f = new GeoCountDownTimer();
-        f.sampleWriteData();
-        f.sampleReadData();
-
-    }
 
 }

@@ -1,3 +1,5 @@
+package Project1;
+
 import java.io.*;
 import java.util.Scanner;
 
@@ -18,12 +20,12 @@ public class GeoCountDownTimer {
     /****************************************************************************************************
      * Private constructor that sets GeoCountDownTimer to zero
      ****************************************************************************************************/
-    private GeoCountDownTimer() {
-        year = 0;
-        month = 0;
-        day = 0;
-    }
 
+    private GeoCountDownTimer() {
+            year = 0;
+            month = 0;
+            day = 0;
+    }
     /***************************************************************************************************
      * Prevents someone from starting new GeoCountDownTimer Object
      **************************************************************************************************/
@@ -81,7 +83,7 @@ public class GeoCountDownTimer {
      * @param other
      ****************************************************************************************************/
     public void GeoCountDownTimer(GeoCountDownTimer other) {
-        if(other != null) {
+        if (other != null) {
             this.year = other.year;
             this.month = other.month;
             this.day = other.day;
@@ -126,6 +128,7 @@ public class GeoCountDownTimer {
         return (s2.year == s1.year) && (s2.month == s1.month)
                 && (s2.day == s1.day);
     }
+
     /*****************************************************************************************************
      * Method that checks if GeoCountDownTimer object is exactly the same as the other object
      * @param obj
@@ -137,22 +140,22 @@ public class GeoCountDownTimer {
         //casting other object as a GeoCountDownTimer object
         GeoCountDownTimer other = (GeoCountDownTimer) obj;
 
-        if(this == obj) {
+        if (this == obj) {
             return true;
         }
-        if(getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        if(other == null) {
+        if (other == null) {
             return false;
         }
-        if(this.day != other.day) {
+        if (this.day != other.day) {
             return false;
         }
-        if(this.year != other.year) {
+        if (this.year != other.year) {
             return false;
         }
-        if(this.month != other.month) {
+        if (this.month != other.month) {
             return false;
         }
         return true;
@@ -166,43 +169,43 @@ public class GeoCountDownTimer {
     public int compareTo(GeoCountDownTimer other) {
 
         //checks if this GeoCountDownTimer object is equal to other GeoCountDownTimer object
-        if(this.equals(other)) {
+        if (this.equals(other)) {
             return 0;
         }
 
         //checks the years and turns -1 if smaller
-        if(this.year < other.year) {
+        if (this.year < other.year) {
             return -1;
         }
 
         //checks if year is greater and returns 1
-        else if(this.year > other.year) {
+        else if (this.year > other.year) {
             return 1;
         }
 
         //if years are the same
-        else if(this.year ==  other.year) {
+        else if (this.year == other.year) {
 
             //checks month and returns -1 if the month is smaller
-            if(this.month < other.month) {
+            if (this.month < other.month) {
                 return -1;
             }
 
             //checks month and returns 1 if the month is greater
-            else if(this.month > other.month) {
+            else if (this.month > other.month) {
                 return 1;
             }
 
             //if the months are equal
-            else if(this.month == other.month) {
+            else if (this.month == other.month) {
 
                 //checks day and returns -1 if smaller
-                if(this.day < other.day) {
+                if (this.day < other.day) {
                     return -1;
                 }
 
                 //checks day and returns 1 if smaller
-                else if(this.day > other.day) {
+                else if (this.day > other.day) {
                     return 1;
                 }
             }
@@ -216,7 +219,7 @@ public class GeoCountDownTimer {
      * @param days
      ****************************************************************************************************/
     public void dec(int days) {
-        for(int i = days; i > 0; i--) {
+        for (int i = days; i > 0; i--) {
             dec();
         }
     }
@@ -229,7 +232,7 @@ public class GeoCountDownTimer {
         int isLeapYear = 0;
 
         //if it is leap year and the month is Match
-        if(isLeapYear(this.year) && this.month == 3) {
+        if (isLeapYear(this.year) && this.month == 3) {
             day = DAYS_IN_MONTH[this.month - 1] + 1;
         }
 
@@ -259,7 +262,7 @@ public class GeoCountDownTimer {
      * @param days
      *****************************************************************************************************/
     public void inc(int days) {
-        for(int i = days; i > 0; i--) {
+        for (int i = days; i > 0; i--) {
             inc();
         }
     }
@@ -270,10 +273,9 @@ public class GeoCountDownTimer {
     public void inc() {
 
         int daysInMonth = 0;
-        if(isLeapYear(this.year) && this.month == 2) {
+        if (isLeapYear(this.year) && this.month == 2) {
             daysInMonth = DAYS_IN_MONTH[this.month] + 1;
-        }
-        else {
+        } else {
             daysInMonth = DAYS_IN_MONTH[this.month];
         }
         if (this.day == daysInMonth) {
@@ -380,18 +382,17 @@ public class GeoCountDownTimer {
             e.printStackTrace();
         }
 
-        out.println (month);
-        out.println (day);
-        out.println (year);
+        out.println(month);
+        out.println(day);
+        out.println(year);
 
         out.close();
     }
 
-    public void load(String fileName)
-    {
+    public void load(String fileName) {
         int year, day, month;
 
-        try{
+        try {
             // open the data file
             Scanner fileReader = new Scanner(new File(fileName));
 
@@ -399,15 +400,14 @@ public class GeoCountDownTimer {
             month = fileReader.nextInt();
             day = fileReader.nextInt();
             year = fileReader.nextInt();
-            System.out.println (month + " " + day + " " + year);
+            System.out.println(month + " " + day + " " + year);
         }
 
         // could not find file
-        catch(Exception error) {
+        catch (Exception error) {
             System.out.println("File not found ");
         }
     }
-
 
 
     /*************************************************************************************************
@@ -425,7 +425,7 @@ public class GeoCountDownTimer {
         System.out.println("Date: " + s1);
 
         GeoCountDownTimer s2 = new GeoCountDownTimer("2/10/2019");
-        for (int i = 0; i < (365 + 366 ); i++)
+        for (int i = 0; i < (365 + 366); i++)
             s2.inc(1);
         System.out.println("Date: " + s2);
 
