@@ -389,6 +389,10 @@ public class GeoCountDownTimer {
         out.close();
     }
 
+    /************************************************************************************************************
+     *Method that loads GeoCountDownTimer object from file
+     * @param fileName
+     ************************************************************************************************************/
     public void load(String fileName) {
         int year, day, month;
 
@@ -431,6 +435,5 @@ public class GeoCountDownTimer {
 
         // Create many more test cases in this driver method to
         // prove the class is functioning correctly
-
     }
 }
