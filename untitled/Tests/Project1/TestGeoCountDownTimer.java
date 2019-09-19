@@ -150,7 +150,5 @@ public class TestGeoCountDownTimer {
             out.close();
 
         }
-
-
     }
 
