@@ -8,44 +8,164 @@ import static org.junit.Assert.*;
 
 public class TestGeoCountDownTimer {
 
+    //testing second constructor
     @Test
-    public void testConstructor2() {
-        GeoCountDownTimer s = new GeoCountDownTimer("5/10/2015");
-        assertTrue(s.toDateString().equals("5/10/2015"));
+    public void testConstructor2a() {
+        GeoCountDownTimer f = new GeoCountDownTimer("1/1/2019");
+        assertEquals(f.toDateString(),"1/1/2019");
+    }
+
+    //testing second constructor
+    @Test
+    public void testConstructor2b() {
+        GeoCountDownTimer s = new GeoCountDownTimer("5/10/2019");
+        assertEquals(s.toDateString(), "5/10/2019");
+    }
+
+    //testing second constructor
+    @Test
+    public void testConstructor2c() {
+        GeoCountDownTimer s = new GeoCountDownTimer("12/31/2019");
+        assertEquals(s.toDateString(), "12/31/2019");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructor3() {
-        GeoCountDownTimer s = new GeoCountDownTimer("2/29/2015");
-        assertTrue(s.toDateString().equals("2/29/2016"));
+        GeoCountDownTimer s = new GeoCountDownTimer("2/29/2019");
+        assertEquals(s.toDateString(), "2/29/2020");
     }
 
+    //testing inc() method, normal increase by 1 day
     @Test
     public void testAddMethod() {
-        GeoCountDownTimer s1 = new GeoCountDownTimer(5, 10, 2015);
-        s1.inc(365);
-        System.out.println(s1.toDateString().equals("5/9/2016"));
-        assertTrue(s1.toDateString().equals("5/9/2016"));
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 10, 5);
+        s1.inc(1);
+        System.out.println(s1);
+        System.out.println(s1.toDateString().equals("10/6/2019"));
+        assertEquals(s1.toDateString(), "10/6/2019");
+    }
 
-        s1 = new GeoCountDownTimer(5, 10, 2016);
+   //testing inc() method,  roll over to new year
+    @Test
+    public void testAddMethod2() {
+        GeoCountDownTimer s2 = new GeoCountDownTimer(2019, 12, 31);
+        s2.inc(1);
+        System.out.println(s2);
+        System.out.println(s2.toDateString().equals("1/1/2020"));
+        assertEquals(s2.toDateString(), "1/1/2020");
+    }
 
-		for (int i = 0; i < 365; i++)
-			s1.inc();
-		System.out.println (s1);
-		assertTrue (s1.toDateString().equals("5/10/2017"));
+    //testing inc() method, roll over of day in case of a leap year
+    @Test
+    public void testAddMethod3() {
+        GeoCountDownTimer s3 = new GeoCountDownTimer(2020, 2, 28);
+        s3.inc(1);
+        System.out.println(s3);
+        System.out.println(s3.toDateString().equals("2/29/2020"));
+        assertEquals(s3.toDateString(), "2/29/2020");
+    }
 
-		s1 = new GeoCountDownTimer(5,10,2016);
+    //testing inc() method, the roll over to a new month
+    @Test
+    public void testAddMethod4() {
+        GeoCountDownTimer s4 = new GeoCountDownTimer(2019, 1, 31);
+        s4.inc(1);
+        System.out.println(s4);
+        System.out.println(s4.toDateString().equals("2/1/2019"));
+        assertEquals(s4.toDateString(), "2/1/2019");
+    }
 
-		System.out.println ("Start:" + s1);
-    	for (int i = 0; i < 31665; i++)
-			s1.inc();
-		System.out.println ("Middle:" + s1);
+    //testing inc() method, adding more than 1 day at a time
+    @Test
+    public void testAddMethod5() {
+        GeoCountDownTimer s5 = new GeoCountDownTimer(2019, 1, 10);
+        s5.inc(5);
+        System.out.println(s5);
+        System.out.println(s5.toDateString().equals("1/15/2019"));
+        assertEquals(s5.toDateString(), "1/15/2019");
+    }
 
-		for (int i = 0; i < 31665; i++)
-			s1.dec();
-		System.out.println ("End: " + s1);
+    //testing inc() method, roll over to March in case of no leap year
+    @Test
+    public void testAddMethod6() {
+        GeoCountDownTimer s6 = new GeoCountDownTimer(2019, 2, 28);
+        s6.inc(1);
+        System.out.println(s6);
+        System.out.println(s6.toDateString().equals("3/1/2019"));
+        assertEquals(s6.toDateString(),"3/1/2019");
+    }
 
-	}
+    //testing dec() method, normal decrease by 1 day
+    @Test
+    public void testDecMethod() {
+        GeoCountDownTimer m1 = new GeoCountDownTimer(2019, 5, 2);
+        m1.dec();
+        System.out.println(m1);
+        System.out.print(m1.toDateString().equals("5/1/2019"));
+        assertEquals(m1.toDateString(), "5/1/2019");
+    }
+
+    //testing dec() method, roll over month
+    @Test
+    public void testDecMethod2() {
+        GeoCountDownTimer m2 = new GeoCountDownTimer(2019, 5, 1);
+        m2.dec();
+        System.out.println(m2);
+        System.out.print(m2.toDateString().equals("4/30/2019"));
+        assertEquals(m2.toDateString(), "4/30/2019");
+    }
+
+    //testing dec() method, roll over year
+    @Test
+    public void testDecMethod3() {
+        GeoCountDownTimer m3 = new GeoCountDownTimer(2020, 1 ,1);
+        m3.dec();
+        System.out.println(m3);
+        System.out.print(m3.toDateString().equals("12/31/2019"));
+        assertEquals(m3.toDateString(), "12/31/2019");
+    }
+
+    //testing dec() method in case of leap year
+    @Test
+    public void testDecMethod4() {
+        GeoCountDownTimer m4 = new GeoCountDownTimer(2020, 3 ,1);
+        m4.dec();
+        System.out.println(m4);
+        System.out.print(m4.toDateString().equals("2/29/2019"));
+        assertEquals(m4.toDateString(), "2/29/2019");
+    }
+
+    //testing dec() method in case of not leap year
+    @Test
+    public void testDecMethod5() {
+        GeoCountDownTimer m5 = new GeoCountDownTimer(2021, 1 ,1);
+        m5.dec();
+        System.out.println(m5);
+        System.out.print(m5.toDateString().equals("2/28/2019"));
+        assertEquals(m5.toDateString(), "2/28/2019");
+    }
+
+
+
+//        s1 = new GeoCountDownTimer(2016, 10, 5);
+//
+//		for (int i = 0; i < 365; i++)
+//			s1.inc();
+//		System.out.println (s1);
+//		assertTrue (s1.toDateString().equals("10/5/2017"));
+//
+//		s1 = new GeoCountDownTimer(2016,10,5);
+//
+//		System.out.println ("Start:" + s1);
+//    	for (int i = 0; i < 31665; i++)
+//			s1.inc();
+//		System.out.println ("Middle:" + s1);
+//
+//		for (int i = 0; i < 31665; i++)
+//			s1.dec();
+//		System.out.println ("End: " + s1);
+
+//	}
 //
 //
 //	// must have a separate test for each Exception
@@ -155,5 +275,5 @@ public class TestGeoCountDownTimer {
 
         }
 
-    }
+}
 

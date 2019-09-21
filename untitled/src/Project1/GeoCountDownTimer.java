@@ -11,6 +11,7 @@ import java.util.Scanner;
  *@version 1.0
  **********************************************************************************************************/
 public class GeoCountDownTimer {
+
     //instance variables
     private int year;
     private int month;
@@ -34,7 +35,8 @@ public class GeoCountDownTimer {
     /***************************************************************************************************
      * Final array list of type int method for days in the month
      ***************************************************************************************************/
-// Days in each month (assuming months are numbered beginning with 1)
+
+    // Days in each month (assuming months are numbered beginning with 1)
     private static final int[] DAYS_IN_MONTH = {0, 31, 28, 31, 30, 31, 30, 31,
             31, 30, 31, 30, 31};
 
@@ -50,7 +52,7 @@ public class GeoCountDownTimer {
      * @param month
      * @param day
      * @param year
-     * @return
+     * @return true
      ***************************************************************************************************/
     private static boolean isValidDate(int month, int day, int year) {
 
@@ -101,6 +103,7 @@ public class GeoCountDownTimer {
         int z = 0;
         int y = 0;
         int x = 0;
+        int lastIndex = 0;
 
         //finds first index of '/' for month
         z = startDate.indexOf('/');
@@ -108,21 +111,27 @@ public class GeoCountDownTimer {
         //creates month substring from index 0 up until index of '/'
         mon = startDate.substring(0, z);
 
-        //looks for second index of '/' after the first known index of '/'
-        y = startDate.indexOf('/', z);
+        //looks for last index of '/'
+        lastIndex = startDate.lastIndexOf('/');
 
-        //creates day substring from first index of '/' until the second index of '/'
-        dy = startDate.substring(z, y);
+        //creates day substring from first index of '/' until the last index of '/'
+        dy = startDate.substring(z+1, lastIndex);
 
-        //creates year substring from second known index of '/' to the end of the string
-        yr = startDate.substring(y, startDate.length());
+        //creates year substring form last known index of '/' to the end of the string
+        yr = startDate.substring(lastIndex+1);
+
+        //parses String to Integer
+        this.month = Integer.parseInt(mon);
+        this.year = Integer.parseInt(yr);
+        this.day = Integer.parseInt(dy);
+
     }
 
     /*****************************************************************************************************
      * Method that checks if two GeoCountDownTimer objects are the same
      * @param s1
      * @param s2
-     * @return
+     * @return true
      *****************************************************************************************************/
     public static boolean equals(GeoCountDownTimer s1, GeoCountDownTimer s2) {
         return (s2.year == s1.year) && (s2.month == s1.month)
@@ -232,12 +241,13 @@ public class GeoCountDownTimer {
         int isLeapYear = 0;
 
         //if it is leap year and the month is Match
-        if (isLeapYear(this.year) && this.month == 3) {
-            day = DAYS_IN_MONTH[this.month - 1] + 1;
+        if (isLeapYear(this.year) && this.month == 3 && this.day == 1) {
+            day = DAYS_IN_MONTH[this.month -1] + 1;
+            this.month--;
         }
 
         //if it is the first day of the month
-        if (this.day == 1) {
+        else if (this.day == 1) {
 
             //if it is January, set day to DAYS_IN_MONTH of December and decrease the year
             if (this.month == 1) {
@@ -254,7 +264,7 @@ public class GeoCountDownTimer {
         } else {
             this.day--;
         }
-    }
+   }
 
 
     /*****************************************************************************************************
@@ -342,7 +352,7 @@ public class GeoCountDownTimer {
     }
 
     /*****************************************************************************************************
-     * Setter method for int month33333
+     * Setter method for int month
      * @param month
      ****************************************************************************************************/
     public void setMonth(int month) {
@@ -419,21 +429,149 @@ public class GeoCountDownTimer {
      * @param args
      *************************************************************************************************/
     public static void main(String[] args) {
+
+        //testing startDate() method and constructor GeoCountDownTimer(int year, int month, int day)
         GeoCountDownTimer s = new GeoCountDownTimer("2/10/2020");
-        System.out.println("Date: " + s);
+        System.out.println("Date expected: 2/10/2020 \tstartDate() given date: " + s);
 
+        //testing startDate() method and toString() method
         GeoCountDownTimer s1 = new GeoCountDownTimer("2/10/2022");
-        System.out.println("Date: " + s1.toString());
+        System.out.println("Date expected: 2/10/2022 \tstartDate() and toString() date: " + s1.toString());
 
-        s1.dec(365);
-        System.out.println("Date: " + s1);
+        //testing toString() method
+        GeoCountDownTimer s9 = new GeoCountDownTimer(2019, 5, 2);
+        System.out.println("Expecting: May 2, 2019 \ttoString(): " + s9.toString());
 
+        //testing toDateString() method
+        System.out.println("Expecting: 5/2/2019 \ttoDateString(): " + s9.toDateString());
+
+        //testing dec(int days) method calling dec() method
+        s1.dec(5);
+        System.out.println("Date expected: 2/5/2022 \tdec(5) date: " + s1);
+
+        //testing dec() method
+
+            //by counting down one day
+            GeoCountDownTimer x = new GeoCountDownTimer("4/11/2019");
+            x.dec();
+            System.out.println("Date expected: 4/10/2019 \tdec() date: " + x);
+
+            //by rolling over months
+            GeoCountDownTimer rollMonth = new GeoCountDownTimer("2/1/2019");
+            rollMonth.dec();
+            System.out.println("Date expected: 1/31/2019 \tdec() date: " + rollMonth);
+
+            //by rolling over year
+            GeoCountDownTimer rollYear = new GeoCountDownTimer("1/1/2020");
+            rollYear.dec();
+            System.out.println("Date expected: 12/31/2019 \tdec() date: " + rollYear);
+
+            //leap year, dec one day
+            GeoCountDownTimer decLeapYear = new GeoCountDownTimer("3/1/2020");
+            decLeapYear.dec();
+            System.out.println("Date expected: 2/29/2020 \tdec() leap year date: " + decLeapYear);
+
+
+        //testing inc(int day) method
         GeoCountDownTimer s2 = new GeoCountDownTimer("2/10/2019");
-        for (int i = 0; i < (365 + 366); i++)
-            s2.inc(1);
-        System.out.println("Date: " + s2);
+        s2.inc(5);
+        System.out.println("Expecting: 2/15/2019 \tinc() loop date: " + s2);
 
-        // Create many more test cases in this driver method to
-        // prove the class is functioning correctly
+        //testing inc() method
+
+            //testing inc by one day
+            GeoCountDownTimer incOneDay = new GeoCountDownTimer("5/2/2019");
+            incOneDay.inc();
+            System.out.println("Date expected: 5/3/2019 \tinc() date: " + incOneDay);
+
+            //testing rolling over month
+            GeoCountDownTimer incRollMonth = new GeoCountDownTimer("1/31/2019");
+            incRollMonth.inc();
+            System.out.println("Date expected: 2/1/2019 \tinc() date: " + incRollMonth);
+
+            //testing rolling over year
+            GeoCountDownTimer incRollYear = new GeoCountDownTimer("12/31/2019");
+            incRollYear.inc();
+            System.out.println("Date expected: 1/1/2020 \tinc() date: " + incRollYear);
+
+            //leap year, inc one day
+            GeoCountDownTimer incLeapYear = new GeoCountDownTimer("2/28/2020");
+            incLeapYear.inc();
+            System.out.println("Date expected : 2/29/2019 \tinc() leap year date: " + incLeapYear);
+
+
+        //testing isLeapYear() , expecting true
+        GeoCountDownTimer s3 = new GeoCountDownTimer("2/10/2020");
+        System.out.println("Date: 2/10/2020 \tisLeapYear() expected to be true: " + isLeapYear(s3.getYear()));
+
+        //testing isLeapYear() , expecting false
+        GeoCountDownTimer d = new GeoCountDownTimer("5/5/2019");
+        System.out.println("Date: 5/5/2019 \tisLeapYear() expected to be false: " + isLeapYear(d.getYear()));
+
+        //testing equals() method
+
+            // expecting true
+            GeoCountDownTimer s4 = new GeoCountDownTimer("2/15/2019");
+            GeoCountDownTimer s5 = new GeoCountDownTimer("2/15/2019");
+            System.out.println("Both dates: 2/15/2019 \tequals() expected to be true: " + equals(s4, s5));
+
+            //testing equals() method, expecting false
+            GeoCountDownTimer s6 = new GeoCountDownTimer("2/17/2019");
+            System.out.println("Date one: 2/15/2019 \tDate two: 2/17/2019 \tequals() expected be false: " + equals(s5, s6));
+
+        //testing compareTo() method
+
+            //expecting return 0, meaning they are the same
+            System.out.println("Both dates: 2/15/2019 \tcompareTo() expecting 0: " + s4.compareTo(s5));
+
+            //expecting -1, meaning smaller (looking at months and days)
+            System.out.println("Date one(smaller): 2/15/2019 \tDate two(larger): 5/5/2019 \tcompareTo() expecting -1: " + s4.compareTo(d));
+
+            //expecting -1, meaning smaller (looking just at days)
+            System.out.println("Date one(smaller): 2/15/2019 \tDate two(larger): 2/17/2019 \tcompareTo() expecting -1: " + s4.compareTo(s6));
+
+            //expecting -1, meaning smaller (looking at just months)
+            GeoCountDownTimer f  = new GeoCountDownTimer("3/15/2019");
+            System.out.println("Date one(smaller): 2/15/2019 \tDate two(larger): 3/15/2019 \tcompareTo() expecting -1: " + s4.compareTo(f));
+
+            //expecting -1, meaning smaller (looking at just years)
+            GeoCountDownTimer g = new GeoCountDownTimer("2/10/2019");
+            System.out.println("Date one(smaller): 2/10/2019 \tDate two(larger): 2/10/2020 \tcompareTo() expecting -1: " + g.compareTo(s3));
+
+            //expecting 1, meaning bigger (looking at months and days)
+            System.out.println("Date one(bigger): 5/5/2019 \tDate two(smaller): 2/15/2019 \tcompareTo() expecting 1: " + d.compareTo(s4));
+
+            //expecting 1, meaning bigger(looking at just days)
+            System.out.println("Date one(bigger): 2/17/2019 \tDate two(smaller): 2/15/2019 \tcompareTo() expecting 1: " + s6.compareTo(s4));
+
+            //expecting 1, meaning bigger(looking at just months)
+            System.out.println("Date one(bigger): 3/15/2019 \tDate two(smaller): 2/15/2019 \tcompareTo() expecting 1: " + f.compareTo(s4));
+
+         //testing getter methods
+            GeoCountDownTimer getterTest = new GeoCountDownTimer(2019, 8, 2 );
+
+            //getting month
+            System.out.println("Expected month: 8 \tgetMonth(): " + getterTest.getMonth());
+
+            //getting day
+            System.out.println("Expected day: 2 \tgetDay(): " + getterTest.getDay());
+
+            //getting year
+            System.out.println("Expected year: 2019 \tgetYear(): " + getterTest.getYear());
+
+         //testing setter methods
+            GeoCountDownTimer setterTest = new GeoCountDownTimer(2019, 7, 10);
+
+            //setting day
+            setterTest.setDay(12);
+            System.out.println("Expected day: 12 \tsetDay(): " + setterTest.getDay());
+
+            //setting month
+            setterTest.setMonth(8);
+            System.out.println("Expected month: 8 \tsetMonth(): " + setterTest.getMonth());
+
+            //setting year
+            setterTest.setYear(2020);
+            System.out.println("Expected year: 2020 \tsetMonth(): " + setterTest.getYear());
     }
 }
