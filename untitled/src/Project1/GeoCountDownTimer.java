@@ -377,6 +377,7 @@ public class GeoCountDownTimer {
             //if it is January, set day to DAYS_IN_MONTH of December and decrease the year
             if (this.month == 1) {
                 day = DAYS_IN_MONTH[12];
+                this.month = 12;
                 this.year--;
             }
 
@@ -531,16 +532,12 @@ public class GeoCountDownTimer {
 
         PrintWriter out = null;
         try {
-            out = new PrintWriter(new BufferedWriter(new FileWriter(
-                    filename)));
+            out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        out.println(month);
-        out.println(day);
-        out.println(year);
-
+        out.println(this.month + "/" + this.day + "/" + this.year);
         out.close();
     }
 
@@ -549,19 +546,16 @@ public class GeoCountDownTimer {
      * @param fileName String
      ************************************************************************************************************/
     public void load(String fileName) {
-        int year;
-        int day;
-        int month;
 
         try {
             // open the data file
             Scanner fileReader = new Scanner(new File(fileName));
 
             // read one String in of data and an int
-            month = fileReader.nextInt();
-            day = fileReader.nextInt();
-            year = fileReader.nextInt();
-            System.out.println(month + " " + day + " " + year);
+            this.month = fileReader.nextInt();
+            this.day = fileReader.nextInt();
+            this.year = fileReader.nextInt();
+            System.out.println(this.month + "/" + this.day + "/" + this.year);
         }
 
         // could not find file
@@ -873,7 +867,7 @@ public class GeoCountDownTimer {
 
          //testing daysInFuture() method with negative n
             GeoCountDownTimer tryMe4 = new GeoCountDownTimer(2019, 4, 10);
-            System.out.println("Expected date: 4/5/2019 \tfuture date: " + tryMe4.daysInFuture((0-5)).toDateString());
+            System.out.println("Expected date: 4/5/2019 \tfuture date: " + tryMe4.daysInFuture((-5)).toDateString());
 
          //testing daysInFuture() method with positive n, going over a leap year
             GeoCountDownTimer tryMe5 = new GeoCountDownTimer(2020, 2, 28);
@@ -883,12 +877,12 @@ public class GeoCountDownTimer {
             GeoCountDownTimer tryMe6 = new GeoCountDownTimer(2019, 2, 28);
             System.out.println("Expected date: 3/5/2019 \tfuture date: " + tryMe6.daysInFuture(5).toDateString());
 
-        //testing daysInFuture() method with negative n, going over a leap year
+         //testing daysInFuture() method with negative n, going over a leap year
             GeoCountDownTimer tryMe7 = new GeoCountDownTimer(2020, 3, 4);
-            System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe7.daysInFuture((0-5)).toDateString());
+            System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe7.daysInFuture((-5)).toDateString());
 
-        //testing daysInFuture() method with negative n, going over a non leap year
+         //testing daysInFuture() method with negative n, going over a non leap year
             GeoCountDownTimer tryMe8 = new GeoCountDownTimer(2020, 3, 5);
-            System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe8.daysInFuture((0-5)).toDateString());
+            System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe8.daysInFuture((-5)).toDateString());
     }
 }

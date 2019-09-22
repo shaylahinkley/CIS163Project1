@@ -58,7 +58,7 @@ public class TestGeoCountDownTimer {
      *testConstructor1()
      * testing constructor 1 for expected AssertionError
      ****************************************************************************************************/
-    @Test (expected = AssertionError.class)
+    @Test (expected = IllegalArgumentException.class)
     public void testConstructor1() {
         new GeoCountDownTimer(2,-3,-3);
     }
@@ -198,8 +198,8 @@ public class TestGeoCountDownTimer {
         GeoCountDownTimer m4 = new GeoCountDownTimer(2020, 3 ,1);
         m4.dec();
         System.out.println(m4);
-        System.out.print(m4.toDateString().equals("2/29/2019"));
-        assertEquals("Decreasing by one day in a leap year failed", "2/29/2019", m4.toDateString());
+        System.out.print(m4.toDateString().equals("2/29/2020"));
+        assertEquals("Decreasing by one day in a leap year failed", "2/29/2020", m4.toDateString());
     }
 
     /****************************************************************************************************
