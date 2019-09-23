@@ -16,10 +16,16 @@ import java.util.Date;
  **********************************************************************************************************/
 public class GeoCountDownTimer {
 
-    //instance variables
+    /** private instance variable for the year*/
     private int year;
+
+    /** private instance variable for the month*/
     private int month;
+
+    /**  private instance variable for the day*/
     private int day;
+
+    /** private static final instance variable that sets the minimum year to 2019*/
     private static final int MIN_YEAR = 2019;
 
     /****************************************************************************************************
@@ -65,8 +71,9 @@ public class GeoCountDownTimer {
     }
 
     /*****************************************************************************************************
-     * Constructor that accepts a string as a parameter
-     * @param startDate String
+     * Constructor that accepts a string as a parameter and parses the string to type integer
+     * to be able to be set to the instance variables of object GeoCountDownTimer
+     * @param startDate String in the form of MM/dd/yyyy
      *****************************************************************************************************/
     public GeoCountDownTimer(String startDate) {
 
@@ -189,7 +196,7 @@ public class GeoCountDownTimer {
     }
 
     /***************************************************************************************************
-     * Method that checks if it is a leap year
+     * Method that checks if a given year is a leap year
      * @param year int
      * @return boolean true
      ***************************************************************************************************/
@@ -199,8 +206,8 @@ public class GeoCountDownTimer {
 
     /*****************************************************************************************************
      * Method that checks if two GeoCountDownTimer objects are the same
-     * @param s1 GeoCountDownTimer
-     * @param s2 GeoCountDownTimer
+     * @param s1 GeoCountDownTimer object
+     * @param s2 GeoCountDownTimer object
      * @return true
      *****************************************************************************************************/
     public static boolean equals(GeoCountDownTimer s1, GeoCountDownTimer s2) {
@@ -272,9 +279,9 @@ public class GeoCountDownTimer {
     }
 
     /*******************************************************************************************************************
-     * Method that compares two dates
+     * Method that compares two dates to each other in terms of in past or future
      * @param other GeoCountDownTimer
-     * @return int 0
+     * @return  0 int
      *******************************************************************************************************************/
     public int compareTo(GeoCountDownTimer other) {
 
@@ -347,6 +354,7 @@ public class GeoCountDownTimer {
 
     /****************************************************************************************************
      * Method that subtracts the number of days and adjusts the timer date down the correct number of days
+     * that the user wants
      * calls the dec() method
      * @param days int
      ****************************************************************************************************/
@@ -359,7 +367,7 @@ public class GeoCountDownTimer {
     }
 
     /*****************************************************************************************************
-     * Method that subtracts 1 day from this GeoCountDownTimer object
+     * Method that subtracts 1 day from this GeoCountDownTimer object date
      *****************************************************************************************************/
     public void dec() {
 
@@ -395,7 +403,9 @@ public class GeoCountDownTimer {
 
 
     /*****************************************************************************************************
-     * Method that adds the number of days to the GeoCountDownTimer Object by calling inc() method
+     * Method that adds the number of days and adjusts the timer date up the correct number of days
+     * that the user wants
+     * calls inc() method
      * @param days int
      *****************************************************************************************************/
     public void inc(int days) {
@@ -407,7 +417,7 @@ public class GeoCountDownTimer {
     }
 
     /*****************************************************************************************************
-     *Method that adds 1 day to the GeoCountDownTimer object
+     *Method that adds 1 day to the GeoCountDownTimer object date
      *****************************************************************************************************/
     public void inc() {
 
@@ -445,8 +455,8 @@ public class GeoCountDownTimer {
     }
 
     /*****************************************************************************************************
-     *toString() method that outputs date in Month day, year format
-     * @return String fullDate
+     *toString() method that outputs date in Month day, year format from the GeoCountDownTimer object
+     * @return String s
      *****************************************************************************************************/
     public String toString() {
         String s = MONTHS[this.month] + " " + this.day + ", " + this.year;
@@ -454,7 +464,7 @@ public class GeoCountDownTimer {
     }
 
     /*****************************************************************************************************
-     * toDateString() method prints date in month/day/year format
+     * toDateString() method outputs date in month/day/year format from the GeoCountDownTimer object
      * @return String date
      *****************************************************************************************************/
     public String toDateString() {
@@ -538,7 +548,7 @@ public class GeoCountDownTimer {
     }
 
     /****************************************************************************************************
-     * Method that saves a date
+     * Method that saves a GeoCountDownTimer
      * @param filename String
      ****************************************************************************************************/
     public void save(String filename) {
@@ -579,7 +589,7 @@ public class GeoCountDownTimer {
 
     /*************************************************************************************************
      *Method that counts the amount of days leading up until the GeoCountDownTimer Date
-     * @param fromDate String
+     * @param fromDate String is the beginning date until the GeoCountDownTimer object date
      * @return int totDaysBetween
      *************************************************************************************************/
     public int daysToGo(String fromDate) {
