@@ -887,70 +887,28 @@ public class TestGeoCountDownTimer {
         assertEquals("Days in future failed", "1/1/2021", s1.daysInFuture(1).toDateString());
     }
 
+    /****************************************************************************************************
+     *testLoadSave()
+     * tests save() and load() methods for right output
+     ****************************************************************************************************/
+	@Test
+	public void testLoadSave () {
+		GeoCountDownTimer s1 = new GeoCountDownTimer(2019,5,9);
+		GeoCountDownTimer s2 = new GeoCountDownTimer(2019,5,9);
 
+		s1.save("file1");
+		s1 = new GeoCountDownTimer(2019,1,1);  // resets to zero
+    	s1.load("file1");
+		assertTrue (s2.equals(s1));
+	}
 
+    /****************************************************************************************************
+     *Main method
+     * @param args String
+     ****************************************************************************************************/
+	public static void main(String[] args) {
 
-
-
-
-    //test loadSave() method
-//	@Test
-//	public void testLoadSave () {
-//		GeoCountDownTimer s1 = new GeoCountDownTimer(5,9,2019);
-//		GeoCountDownTimer s2 = new GeoCountDownTimer(5,9,2019);
-//
-//		s1.save("file1");
-//		s1 = new GeoCountDownTimer(1,1,2019);  // resets to zero
-//    	s1.load("file1");
-//		assertTrue (s2.equals(s1));
-//	}
-//
-
-//
-//        public void sampleReadData () {
-//            int year;
-//            int month;
-//            int day;
-//
-//            try {
-//                // open the data file
-//                Scanner fileReader = new Scanner(new File("/testit"));
-//                Scanner lineReader;
-//
-//                // read several int for year, month, and day
-//                year = fileReader.nextInt();
-//                month = fileReader.nextInt();
-//                day = fileReader.nextInt();
-//                System.out.println(year + " " + month + " " + day);
-//            }
-//
-//            // could not find file
-//            catch (FileNotFoundException error) {
-//                System.out.println("File not found ");
-//            }
-//
-//            // problem reading the fil
-//            catch (IOException error) {
-//                System.out.println("Oops!  Something went wrong.");
-//            }
-//        }
-//
-//        public void sampleWriteData() {
-//            PrintWriter out = null;
-//            try {
-//                out = new PrintWriter(new BufferedWriter(new FileWriter("/testit")));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            String s = "ANCHORAGE";
-//            out.println(s + " " + "256000");
-//            out.close();
-//
-//        }
-
-        public static void main(String[] args) {
-
-        }
+	}
 
 }
 
