@@ -709,6 +709,17 @@ public class TestGeoCountDownTimer {
     }
 
     /****************************************************************************************************
+     *testSetter()
+     * tests setMonth() for illegal day
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetMonth() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 5, 2);
+        s1.setMonth(13);
+        assertEquals("Wrong month outputted", 3, s1.getMonth());
+    }
+
+    /****************************************************************************************************
      *testDaysToGo()
      * tests daysToGo() method for right output
      ****************************************************************************************************/
