@@ -14,7 +14,86 @@ import java.lang.AssertionError;
 public class TestGeoCountDownTimer {
 
     /****************************************************************************************************
-     * testConStructor2a()
+     *testConstructor1()
+     * testing constructor 1 for expected Illegal Argument Exception
+     * Illegal Day (negative)
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1() {
+        new GeoCountDownTimer(2020,3,-3);
+    }
+
+    /****************************************************************************************************
+     *testConstructor1a()
+     * testing constructor 1 for expected Illegal Argument Exception
+     *Illegal Month (negative)
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1a() {
+        new GeoCountDownTimer(2020,-3,3);
+    }
+
+    /****************************************************************************************************
+     *testConstructor1b()
+     *testing constructor 1 for expected Illegal Argument Exception
+     *Illegal Month (greater than 12)
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1b() {
+        new GeoCountDownTimer(2020,13,3);
+    }
+
+    /****************************************************************************************************
+     *testConstructor1c()
+     * testing constructor 1 for expected Illegal Argument Exception
+     * Illegal Day && Leap Year (bigger than DAYS_IN_MONTH)
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1c() {
+        new GeoCountDownTimer(2020,2,30);
+    }
+
+    /****************************************************************************************************
+     *testConstructor1d()
+     * testing constructor 1 for expected Illegal Argument Exception
+     * Illegal Day && not leap Year (bigger than DAYS_IN_MONTH)
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1d() {
+        new GeoCountDownTimer(2019,2,29);
+    }
+
+    /****************************************************************************************************
+     *testConstructor1e()
+     * testing constructor 1 for expected Illegal Argument Exception
+     * Illegal year (positive) and less than 2019
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1e() {
+        new GeoCountDownTimer(2018,2,13);
+    }
+
+    /****************************************************************************************************
+     *testConstructor1f()
+     * testing constructor 1 for expected Illegal Argument Exception
+     * Illegal year (negative) and less than 2019
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor1f() {
+        new GeoCountDownTimer(-2018,2,3);
+    }
+
+    /****************************************************************************************************
+     *testConstructor2()
+     * testing constructor 2 for expected StringIndexOutofBoundException
+     ****************************************************************************************************/
+    @Test (expected = StringIndexOutOfBoundsException.class)
+    public void testConstructor2() {
+        new GeoCountDownTimer("2,3/2019");
+    }
+
+    /****************************************************************************************************
+     * testConstructor2a()
      * Testing constructor 2 with first day of year
      ****************************************************************************************************/
     @Test
@@ -44,32 +123,261 @@ public class TestGeoCountDownTimer {
     }
 
     /****************************************************************************************************
-     *testConstructor3
-     * testing constructor 3 for illegal date(leap year)
-     * AssertionError expected
-     ****************************************************************************************************/
-    @Test(expected = IllegalArgumentException.class)
-    public void testConstructor3() {
-        GeoCountDownTimer s = new GeoCountDownTimer("2/29/2019");
-        assertEquals("Test for constructor 3 failed", "2/29/20", s.toDateString());
-    }
-
-    /****************************************************************************************************
-     *testConstructor1()
-     * testing constructor 1 for expected AssertionError
+     *testConstructor2d()
+     * testing constructor 2 for expected Illegal Argument Exception
+     * Illegal Month (greater than 12)
      ****************************************************************************************************/
     @Test (expected = IllegalArgumentException.class)
-    public void testConstructor1() {
-        new GeoCountDownTimer(2,-3,-3);
+    public void testConstructor2d() {
+        new GeoCountDownTimer("13/3/2019");
     }
 
     /****************************************************************************************************
-     *testConstructor2()
-     * testing constructor 2 for expected StringIndexOutofBoundException
+     *testConstructor2e()
+     * testing constructor 2 for expected Illegal Argument Exception
+     * Illegal Month (negative)
      ****************************************************************************************************/
-    @Test (expected = StringIndexOutOfBoundsException.class)
-    public void testConstructor2() {
-        new GeoCountDownTimer("2,-3/-3");
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor2e() {
+        new GeoCountDownTimer("-1/3/2019");
+    }
+
+    /****************************************************************************************************
+     *testConstructor2f()
+     * testing constructor 2 for expected Illegal Argument Exception
+     * Illegal Day (greater than days in month) when not leap year
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor2f() {
+        new GeoCountDownTimer("2/29/2019");
+    }
+
+    /****************************************************************************************************
+     *testConstructor2g()
+     * testing constructor 2 for expected Illegal Argument Exception
+     * Illegal Day (greater than days in month) when leap year
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor2g() {
+        new GeoCountDownTimer("2/30/2029");
+    }
+
+    /****************************************************************************************************
+     *testConstructor2h()
+     * testing constructor 2 for expected Illegal Argument Exception
+     * Illegal Day (negative)
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor2h() {
+        new GeoCountDownTimer("2/-3/2029");
+    }
+
+    /****************************************************************************************************
+     *testConstructor2i()
+     * testing constructor 2 for expected Illegal Argument Exception
+     * Illegal year (less than 2019)
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testConstructor2i() {
+        new GeoCountDownTimer("2/3/2018");
+    }
+
+    /****************************************************************************************************
+     *testConstructor2j()
+     * testing constructor 2 for expected Illegal Argument Exception
+     * Leap Year
+     ****************************************************************************************************/
+    @Test
+    public void testConstructor2j() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/29/2020");
+        assertEquals("Test for constructor 2 failed", "2/29/2020", s.toDateString());
+    }
+
+    /****************************************************************************************************
+     *testConstructor3()
+     * testing constructor 3
+     ****************************************************************************************************/
+    @Test
+    public void testConstructor3() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer d = new GeoCountDownTimer("3/2/2020");
+
+        s.GeoCountDownTimer(d);
+        assertEquals("Constructor 3 failed", "3/2/2020", s.toDateString());
+    }
+
+    /****************************************************************************************************
+     *testConstructor3()
+     * testing constructor 3 for Illegal Exception Error
+     * Illegal Day
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor3a() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer d = new GeoCountDownTimer("2/29/2019");
+
+        s.GeoCountDownTimer(d);
+        assertEquals("Constructor 3 failed", "2/29/2019", s.toDateString());
+    }
+
+    /****************************************************************************************************
+     *testConstructor3b()
+     * testing constructor 3 for Illegal Exception Error
+     * Illegal Year
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor3b() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer d = new GeoCountDownTimer("2/29/2018");
+
+        s.GeoCountDownTimer(d);
+        assertEquals("Constructor 3 failed", "2/29/2018", s.toDateString());
+    }
+
+    /****************************************************************************************************
+     *testConstructor3c()
+     * testing constructor 3 for Illegal Exception Error
+     * Illegal Day (negative)
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor3c() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer d = new GeoCountDownTimer("2/-29/2019");
+
+        s.GeoCountDownTimer(d);
+        assertEquals("Constructor 3 failed", "2/-29/2019", s.toDateString());
+    }
+
+    /****************************************************************************************************
+     *testConstructor3d()
+     * testing constructor 3 for Illegal Exception Error
+     * Illegal Month (greater than 12)
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor3d() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer d = new GeoCountDownTimer("13/29/2019");
+
+        s.GeoCountDownTimer(d);
+        assertEquals("Constructor 3 failed", "13/29/2019", s.toDateString());
+    }
+
+    /****************************************************************************************************
+     *testConstructor3e()
+     * testing constructor 3 for Illegal Exception Error
+     * Illegal Month (negative)
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testConstructor3e() {
+        GeoCountDownTimer s = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer d = new GeoCountDownTimer("-3/29/2019");
+
+        s.GeoCountDownTimer(d);
+        assertEquals("Constructor 3 failed", "-3/29/2019", s.toDateString());
+    }
+
+    /****************************************************************************************************
+     *testEquals()
+     * testing boolean equals()
+     * Illegal Month (negative)
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testEquals() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("-3/29/2019");
+
+        GeoCountDownTimer.equals(s1, s2);
+    }
+
+    /****************************************************************************************************
+     *testEquals2()
+     * testing boolean equals()
+     * Illegal Month (greater than 12)
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testEquals2() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("13/29/2019");
+
+        GeoCountDownTimer.equals(s1, s2);
+    }
+
+    /****************************************************************************************************
+     *testEquals3()
+     * testing boolean equals()
+     * Illegal Day (non leap year)
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testEquals3() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("2/29/2019");
+
+        GeoCountDownTimer.equals(s1, s2);
+    }
+
+    /****************************************************************************************************
+     *testEquals4()
+     * testing boolean equals()
+     * Illegal Year
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testEquals4() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("2/12/2018");
+
+        GeoCountDownTimer.equals(s1, s2);
+    }
+
+    /****************************************************************************************************
+     *testEquals5()
+     * testing boolean equals()
+     ****************************************************************************************************/
+    @Test
+    public void testEquals5() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/1/2019");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("2/29/2020");
+
+        GeoCountDownTimer.equals(s1, s2);
+    }
+
+    /****************************************************************************************************
+     *testEquals6()
+     * testing boolean equals()
+     * Illegal Day (non leap year)
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testEquals6() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/29/2019");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("2/20/2019");
+
+        GeoCountDownTimer.equals(s1, s2);
+    }
+
+    /****************************************************************************************************
+     *testEquals7()
+     * testing boolean equals()
+     * Illegal Month
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testEquals7() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("13/19/2019");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("2/20/2019");
+
+        GeoCountDownTimer.equals(s1, s2);
+    }
+
+    /****************************************************************************************************
+     *testEquals8()
+     * testing boolean equals()
+     * Illegal Year
+     ****************************************************************************************************/
+    @Test(expected = IllegalArgumentException.class)
+    public void testEquals8() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer("2/19/2018");
+        GeoCountDownTimer s2 = new GeoCountDownTimer("2/20/2019");
+
+        GeoCountDownTimer.equals(s1, s2);
+
     }
 
     /****************************************************************************************************
@@ -282,6 +590,57 @@ public class TestGeoCountDownTimer {
     }
 
     /****************************************************************************************************
+     *testCompareTo4()
+     * tests compareTo() method  for Illegal Argument Exception
+     * Illegal Year
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testCompareTo4() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 6, 1);
+        GeoCountDownTimer s2 = new GeoCountDownTimer(2018, 5, 9);
+
+        assertTrue("Date does not occur after", s2.compareTo(s1) > 0);
+    }
+
+    /****************************************************************************************************
+     *testCompareTo5()
+     * tests compareTo() method  for Illegal Argument Exception
+     * Illegal Day
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testCompareTo5() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 6, 1);
+        GeoCountDownTimer s2 = new GeoCountDownTimer(2019, 2, 29);
+
+        assertTrue("Date does not occur after", s2.compareTo(s1) > 0);
+    }
+
+    /****************************************************************************************************
+     *testCompareTo6()
+     * tests compareTo() method  for Illegal Argument Exception
+     * Illegal Month
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testCompareTo6() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 6, 1);
+        GeoCountDownTimer s2 = new GeoCountDownTimer(2019, 13, 20);
+
+        assertTrue("Date does not occur after", s1.compareTo(s2) > 0);
+    }
+
+    /****************************************************************************************************
+     *testCompareTo()
+     * tests compareTo() method in case that GeoCountDownTimer objects are equal and leap year
+     ****************************************************************************************************/
+    @Test
+    public void testCompareTo7() {
+        GeoCountDownTimer s5 = new GeoCountDownTimer(2020,2, 29);
+        GeoCountDownTimer s4 = new GeoCountDownTimer(2020, 2, 29);
+
+        assertTrue ("Dates are the same", s5.compareTo(s4) == 0);
+    }
+
+    /****************************************************************************************************
      *testIsLeapYear()
      * tests isLeapYear() method for a date that is in a leap year
      ****************************************************************************************************/
@@ -446,6 +805,17 @@ public class TestGeoCountDownTimer {
     public void testDaysInFuture4() {
         GeoCountDownTimer s1 = new GeoCountDownTimer(2020,3,1);
         assertEquals("Days in future failed", "2/29/2020", s1.daysInFuture(-1).toDateString());
+    }
+
+    /****************************************************************************************************
+     *testDaysInFuture5()
+     * tests daysInFuture() method for right output when positive input parameter n
+     * in case of rolling over year
+     ****************************************************************************************************/
+    @Test
+    public void testDaysInFuture5() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2020,12,31);
+        assertEquals("Days in future failed", "1/1/2021", s1.daysInFuture(1).toDateString());
     }
 
 

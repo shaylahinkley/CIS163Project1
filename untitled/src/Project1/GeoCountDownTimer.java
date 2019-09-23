@@ -25,51 +25,10 @@ public class GeoCountDownTimer {
     /****************************************************************************************************
      * Private constructor that sets GeoCountDownTimer to zero
      ****************************************************************************************************/
-
     private GeoCountDownTimer() {
         year = 0;
         month = 0;
         day = 0;
-    }
-
-    /***************************************************************************************************
-     * Prevents someone from starting new GeoCountDownTimer Object
-     **************************************************************************************************/
-    private static boolean mutate = true;
-
-    /***************************************************************************************************
-     * Final array list of type int method for days in the month
-     ***************************************************************************************************/
-
-    // Days in each month (assuming months are numbered beginning with 1)
-    private static final int[] DAYS_IN_MONTH = {0, 31, 28, 31, 30, 31, 30, 31,
-            31, 30, 31, 30, 31};
-
-    /***************************************************************************************************
-     *Final array list of type String method for names of months
-     ***************************************************************************************************/
-    private static final String[] MONTHS = {"", "January", "February",
-            "March", "April", "May", "June", "July", "August", "September",
-            "October", "November", "December"};
-
-    /***************************************************************************************************
-     * Method that checks if input is valid date
-     * @param month int
-     * @param day int
-     * @param year int
-     * @return boolean true
-     ***************************************************************************************************/
-    private static boolean isValidDate(int month, int day, int year) {
-        return true;
-    }
-
-    /***************************************************************************************************
-     * Method that checks if it is a leap year
-     * @param year int
-     * @return boolean true
-     ***************************************************************************************************/
-    public static boolean isLeapYear(int year) {
-        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
     /****************************************************************************************************
@@ -102,41 +61,6 @@ public class GeoCountDownTimer {
             //throws error if illegal day and leap year
         } else if(isLeapYear(this.year) && this.month == 2 && this.day > 29) {
             throw new IllegalArgumentException();
-        }
-    }
-
-    /****************************************************************************************************
-     * Constructor that initializes the instance variables with the other GeoCountDownTimer parameter
-     * @param other GeoCountDownTimer
-     ****************************************************************************************************/
-    public void GeoCountDownTimer(GeoCountDownTimer other) {
-
-        //throw error if illegal year
-        if(other.year < MIN_YEAR) {
-            throw new IllegalArgumentException();
-
-        //throw error if illegal month
-        } else if(other.month < 1 || other.month > 12) {
-            throw new IllegalArgumentException();
-
-        //throw error if illegal days not during leap year
-        } else if(!isLeapYear(other.year) && other.day > DAYS_IN_MONTH[other.month]) {
-            throw new IllegalArgumentException();
-
-        //throw error if illegal days
-        } else if(other.day < 0) {
-            throw new IllegalArgumentException();
-
-         //throw error if illegal days during leap year
-        } else if(isLeapYear(other.year) && other.month == 2 && other.day > 29) {
-            throw new IllegalArgumentException();
-        }
-
-        //checks if other GeoCountDownTimer exists and references other when this. is called
-        if (other != null) {
-            this.year = other.year;
-            this.month = other.month;
-            this.day = other.day;
         }
     }
 
@@ -179,22 +103,98 @@ public class GeoCountDownTimer {
         if(this.year < MIN_YEAR) {
             throw new IllegalArgumentException();
 
-        //throws error if illegal month
+            //throws error if illegal month
         } else if(this.month < 1 || this.month > 12) {
             throw new IllegalArgumentException();
 
-        //throws error if leap year and illegal day
+            //throws error if leap year and illegal day
         } else if(!isLeapYear(this.year) && this.day > DAYS_IN_MONTH[this.month]) {
             throw new IllegalArgumentException();
 
-        //throws error if illegal day
+            //throws error if illegal day
         } else if(this.day < 0) {
             throw new IllegalArgumentException();
 
-        //throws error if illegal day and leap year
+            //throws error if illegal day and leap year
         } else if(isLeapYear(this.year) && this.month == 2 && this.day > 29) {
             throw new IllegalArgumentException();
         }
+    }
+
+    /****************************************************************************************************
+     * Constructor that initializes the instance variables with the other GeoCountDownTimer parameter
+     * @param other GeoCountDownTimer
+     ****************************************************************************************************/
+    public void GeoCountDownTimer(GeoCountDownTimer other) {
+
+        //throw error if illegal year
+        if(other.year < MIN_YEAR) {
+            throw new IllegalArgumentException();
+
+            //throw error if illegal month
+        } else if(other.month < 1 || other.month > 12) {
+            throw new IllegalArgumentException();
+
+            //throw error if illegal days not during leap year
+        } else if(!isLeapYear(other.year) && other.day > DAYS_IN_MONTH[other.month]) {
+            throw new IllegalArgumentException();
+
+            //throw error if illegal days
+        } else if(other.day < 0) {
+            throw new IllegalArgumentException();
+
+            //throw error if illegal days during leap year
+        } else if(isLeapYear(other.year) && other.month == 2 && other.day > 29) {
+            throw new IllegalArgumentException();
+        }
+
+        //checks if other GeoCountDownTimer exists and references other when this. is called
+        if (other != null) {
+            this.year = other.year;
+            this.month = other.month;
+            this.day = other.day;
+        }
+    }
+
+
+    /***************************************************************************************************
+     * Prevents someone from starting new GeoCountDownTimer Object
+     **************************************************************************************************/
+    private static boolean mutate = true;
+
+    /***************************************************************************************************
+     * Final array list of type int method for days in the month
+     ***************************************************************************************************/
+
+    // Days in each month (assuming months are numbered beginning with 1)
+    private static final int[] DAYS_IN_MONTH = {0, 31, 28, 31, 30, 31, 30, 31,
+            31, 30, 31, 30, 31};
+
+    /***************************************************************************************************
+     *Final array list of type String method for names of months
+     ***************************************************************************************************/
+    private static final String[] MONTHS = {"", "January", "February",
+            "March", "April", "May", "June", "July", "August", "September",
+            "October", "November", "December"};
+
+    /***************************************************************************************************
+     * Method that checks if input is valid date
+     * @param month int
+     * @param day int
+     * @param year int
+     * @return boolean true
+     ***************************************************************************************************/
+    private static boolean isValidDate(int month, int day, int year) {
+        return true;
+    }
+
+    /***************************************************************************************************
+     * Method that checks if it is a leap year
+     * @param year int
+     * @return boolean true
+     ***************************************************************************************************/
+    public static boolean isLeapYear(int year) {
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
     }
 
     /*****************************************************************************************************
@@ -214,7 +214,7 @@ public class GeoCountDownTimer {
             throw new IllegalArgumentException();
 
         //throws error if leap year and illegal day
-        } else if(!isLeapYear(s1.year) && s1.day > DAYS_IN_MONTH[s1.month] || isLeapYear(s2.year) && s2.day > DAYS_IN_MONTH[s2.month]) {
+        } else if(!isLeapYear(s1.year) && s1.day > DAYS_IN_MONTH[s1.month] || !isLeapYear(s2.year) && s2.day > DAYS_IN_MONTH[s2.month]) {
             throw new IllegalArgumentException();
 
         //throws error if illegal day
@@ -836,43 +836,47 @@ public class GeoCountDownTimer {
             setterTest.setYear(2020);
             System.out.println("Expected year: 2020 \tsetMonth(): " + setterTest.getYear());
 
-         //testing daysToGo() method in case of leap year
+         //testing daysToGo() method
+
+            // in case of leap year
             GeoCountDownTimer tryMe = new GeoCountDownTimer(2020, 3, 1);
             tryMe.daysToGo("2/28/2020");
 
-         //testing daysToGo() method in a case that it is not leap year
+             //in a case that it is not leap year
             GeoCountDownTimer tryMe2 = new GeoCountDownTimer(2019, 3, 1);
             tryMe2.daysToGo("2/28/2019");
 
-         //testing daysToGo() for multiple leap year days
+            //for multiple leap year days
             GeoCountDownTimer tryMe10 = new GeoCountDownTimer(2020, 3, 1);
             tryMe10.daysToGo("3/1/2019");
 
-         //testing daysToGo() for the correct number of days in a year
+            //for the correct number of days in a year
             GeoCountDownTimer tryMe11 = new GeoCountDownTimer(2022, 3, 1);
             tryMe11.daysToGo("3/1/2021");
 
-         //testing daysInFuture() method with positive n
+         //testing daysInFuture() method
+
+            // with positive n
             GeoCountDownTimer tryMe3 = new GeoCountDownTimer(2019, 3, 10);
             System.out.println("Expected date:  3/15/2019 \tfuture date: " + tryMe3.daysInFuture(5).toDateString());
 
-         //testing daysInFuture() method with negative n
+            //with negative n
             GeoCountDownTimer tryMe4 = new GeoCountDownTimer(2019, 4, 10);
             System.out.println("Expected date: 4/5/2019 \tfuture date: " + tryMe4.daysInFuture((-5)).toDateString());
 
-         //testing daysInFuture() method with positive n, going over a leap year
+            //with positive n, going over a leap year
             GeoCountDownTimer tryMe5 = new GeoCountDownTimer(2020, 2, 28);
             System.out.println("Expected date: 3/4/2020 \tfuture date: " + tryMe5.daysInFuture(5).toDateString());
 
-         //testing daysInFuture() method with positive n, going over a non leap year
+            //with positive n, going over a non leap year
             GeoCountDownTimer tryMe6 = new GeoCountDownTimer(2019, 2, 28);
             System.out.println("Expected date: 3/5/2019 \tfuture date: " + tryMe6.daysInFuture(5).toDateString());
 
-         //testing daysInFuture() method with negative n, going over a leap year
+            //with negative n, going over a leap year
             GeoCountDownTimer tryMe7 = new GeoCountDownTimer(2020, 3, 4);
             System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe7.daysInFuture((-5)).toDateString());
 
-         //testing daysInFuture() method with negative n, going over a non leap year
+            //with negative n, going over a non leap year
             GeoCountDownTimer tryMe8 = new GeoCountDownTimer(2020, 3, 5);
             System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe8.daysInFuture((-5)).toDateString());
     }
