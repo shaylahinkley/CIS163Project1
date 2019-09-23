@@ -212,8 +212,13 @@ public class GeoCountDownTimer {
      *****************************************************************************************************/
     public static boolean equals(GeoCountDownTimer s1, GeoCountDownTimer s2) {
 
+        //throws error if isValidDate() is false meaning not an integer
+        if(!isValidDate(s1.getYear(), s1.getMonth(), s1.getDay()) || !isValidDate(s2.getYear(), s2.getMonth(), s2.getDay())) {
+            throw new IllegalArgumentException();
+        }
+
         //throws error if illegal year
-        if(s1.year < 2019 || s2.year < 2019) {
+         else if(s1.year < 2019 || s2.year < 2019) {
             throw new IllegalArgumentException();
 
         //throws error if illegal month
@@ -285,8 +290,13 @@ public class GeoCountDownTimer {
      *******************************************************************************************************************/
     public int compareTo(GeoCountDownTimer other) {
 
+        //throws error if the date is not of type int
+        if(!isValidDate(other.getYear(), other.getMonth(), other.getDay())) {
+            throw new IllegalArgumentException();
+        }
+
         //throws error if illegal year
-        if(other.year < MIN_YEAR) {
+        else if(other.year < MIN_YEAR) {
             throw new IllegalArgumentException();
 
         //throws error if illegal month
@@ -625,8 +635,13 @@ public class GeoCountDownTimer {
         int fromYear = Integer.parseInt(yr);
         int fromDay = Integer.parseInt(dy);
 
+        //throws error if the date is not of type int
+        if(!isValidDate(fromYear, fromMonth, fromDay)) {
+            throw new IllegalArgumentException();
+        }
+
         //throws error if illegal year
-        if(fromYear < MIN_YEAR) {
+         else if(fromYear < MIN_YEAR) {
             throw new IllegalArgumentException();
 
         //throws error if illegal month
