@@ -6,7 +6,13 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import java.awt.event.*;
 
-
+/**********************************************************************************************************
+ * CIS 163 01 Project One
+ *GUI
+ * Creates a graphical user interface that references the GeoCountDownTimer class
+ *@author Keilani Bailey & Shayla Hinkley
+ *@version 1.0
+ **********************************************************************************************************/
 public class MyTimerPanel extends JPanel{
     //    private GeoCountDownTimer geoCountDownTimer;
 //    private GeoCountDownTimer geoCountDownTimer2;

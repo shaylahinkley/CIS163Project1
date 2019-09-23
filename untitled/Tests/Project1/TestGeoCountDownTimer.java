@@ -3,14 +3,16 @@ package Project1;
 import java.io.*;
 import java.util.Scanner;
 import org.junit.Test;
-
-
-
 import static org.junit.Assert.*;
 import java.lang.AssertionError;
 
-
-
+/**********************************************************************************************************
+ * CIS 163 01 Project One
+ *TestGeoCountDownTimer
+ *tests methods of GeoCountDownTimer class
+ *@author Keilani Bailey & Shayla Hinkley
+ *@version 1.0
+ **********************************************************************************************************/
 public class TestGeoCountDownTimer {
 
     /****************************************************************************************************
