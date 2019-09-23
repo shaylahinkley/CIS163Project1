@@ -709,14 +709,39 @@ public class TestGeoCountDownTimer {
     }
 
     /****************************************************************************************************
-     *testSetter()
-     * tests setMonth() for illegal day
+     *testSetMonth1()
+     * tests setMonth() for Illegal Argument Exception
+     * illegal month
      ****************************************************************************************************/
     @Test (expected = IllegalArgumentException.class)
-    public void testSetMonth() {
+    public void testSetMonth1() {
         GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 5, 2);
         s1.setMonth(13);
         assertEquals("Wrong month outputted", 3, s1.getMonth());
+    }
+
+    /****************************************************************************************************
+     *testSetDay1()
+     * tests setDay() for Illegal Argument Exception
+     * Illegal Day
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetDay1() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 2, 10);
+        s1.setDay(29);
+        assertEquals("Wrong month outputted", 29, s1.getDay());
+    }
+
+    /****************************************************************************************************
+     *testSetYear1()
+     * tests setYear() for Illegal Argument Exception
+     * Illegal year
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testSetYear1() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 2, 10);
+        s1.setYear(2018);
+        assertEquals("Wrong month outputted", 2018, s1.getYear());
     }
 
     /****************************************************************************************************
@@ -777,6 +802,39 @@ public class TestGeoCountDownTimer {
     }
 
     /****************************************************************************************************
+     *testDaysToGo7()
+     * tests daysToGo() method for Illegal Argument Exception
+     * Illegal year
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testDaysToGo7() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 3, 10);
+        assertTrue(s1.daysToGo("3/10/2018") == 730);
+    }
+
+    /****************************************************************************************************
+     *testDaysToGo8()
+     * tests daysToGo() method for Illegal Argument Exception
+     * Illegal month
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testDaysToGo8() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 3, 10);
+        assertTrue(s1.daysToGo("13/10/2019") == 10);
+    }
+
+    /****************************************************************************************************
+     *testDaysToGo6()
+     * tests daysToGo() method for Illegal Argument Exception
+     * Illegal day
+     ****************************************************************************************************/
+    @Test (expected = IllegalArgumentException.class)
+    public void testDaysToGo6() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019, 3, 10);
+        assertTrue(s1.daysToGo("2/29/2019") == 10);
+    }
+
+    /****************************************************************************************************
      *testDaysInFuture()
      * tests daysInFuture() method for right output when positive n
      ****************************************************************************************************/
@@ -828,6 +886,8 @@ public class TestGeoCountDownTimer {
         GeoCountDownTimer s1 = new GeoCountDownTimer(2020,12,31);
         assertEquals("Days in future failed", "1/1/2021", s1.daysInFuture(1).toDateString());
     }
+
+
 
 
 

@@ -479,6 +479,19 @@ public class GeoCountDownTimer {
      ****************************************************************************************************/
     public void setDay(int day) {
 
+        //throw error if illegal day
+        if(!isLeapYear(this.year) && day > DAYS_IN_MONTH[this.month]) {
+            throw new IllegalArgumentException();
+
+            //throws error if illegal day
+        } else if(day< 0) {
+            throw new IllegalArgumentException();
+
+            //throws error if illegal day and leap year
+        } else if(isLeapYear(this.year) && this.month == 2 && day> 29) {
+            throw new IllegalArgumentException();
+        }
+
         this.day = day;
     }
 
@@ -664,12 +677,8 @@ public class GeoCountDownTimer {
         //creating new GeoCountDownTimer object that is the same as the current GeoCountDownTimerObject
         GeoCountDownTimer daysInFuture = new GeoCountDownTimer(this.year, this.month, this.day);
 
-        //if the daysInFuture date is after the this. date
-        if (this.compareTo(daysInFuture) == -1) {
-            throw new IllegalArgumentException();
-
         //if the days is less than 0, decrease date by n
-        } else if(n < 0) {
+        if(n < 0) {
             daysInFuture.dec(Math.abs(n));
             return daysInFuture;
 
