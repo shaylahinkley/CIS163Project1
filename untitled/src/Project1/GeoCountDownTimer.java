@@ -643,32 +643,10 @@ public class GeoCountDownTimer {
                 //converting to days
                 float daysBetween = (diff / (1000 * 60 * 60 * 24));
 
-                //checks if leap year and calculates days between
-                if (isLeapYear(this.year) && this.month >= 3 && fromMonth <= 2) {
+                //casting daysBetween as typ int
+                totDaysBetween = (int) Math.abs(daysBetween);
+                System.out.println("Days between: " + totDaysBetween);
 
-                    //if the years are different, find how many leap years passed
-                    if (this.year > fromYear) {
-                        int yearDiff = this.year - fromYear;
-                        int leapYear = yearDiff / 4;
-
-                        //casting daysBetween as type int
-                        totDaysBetween = (int) Math.abs(daysBetween) + leapYear;
-                        System.out.println("Days between: " + totDaysBetween);
-
-                    } else if (this.year == fromYear) {
-
-                        //casting daysBetween as type int
-                        totDaysBetween = (int) Math.abs(daysBetween) + 1;
-                        System.out.println("Days between: " + totDaysBetween);
-                    }
-
-                //not leap year, calculate days between
-                } else {
-
-                    //casting daysBetween as typ int
-                    totDaysBetween = (int) Math.abs(daysBetween);
-                    System.out.println("Days between: " + totDaysBetween);
-                }
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -692,7 +670,7 @@ public class GeoCountDownTimer {
 
         //if the days is less than 0, decrease date by n
         } else if(n < 0) {
-            this.dec(n);
+            daysInFuture.dec(Math.abs(n));
             return daysInFuture;
 
             //if the days in future is greater than 0, increase date by n
@@ -826,6 +804,11 @@ public class GeoCountDownTimer {
             //expecting 1, meaning bigger(looking at just months)
             System.out.println("Date one(bigger): 3/15/2019 \tDate two(smaller): 2/15/2019 \tcompareTo() expecting 1: " + f.compareTo(s4));
 
+            //expecting 1, meaning bigger(looking at just years)
+            GeoCountDownTimer daysCompare = new GeoCountDownTimer(2022, 3, 1);
+            GeoCountDownTimer daysCompare2 = new GeoCountDownTimer(2021, 3, 1);
+            System.out.println("Date one(bigger): 3/1/2022 \tDate two(smaller): 3/1/2021 \tcompareTo() expecting 1: " + daysCompare.compareTo(daysCompare2));
+
          //testing getter methods
             GeoCountDownTimer getterTest = new GeoCountDownTimer(2019, 8, 2 );
 
@@ -854,12 +837,20 @@ public class GeoCountDownTimer {
             System.out.println("Expected year: 2020 \tsetMonth(): " + setterTest.getYear());
 
          //testing daysToGo() method in case of leap year
-            GeoCountDownTimer tryMe = new GeoCountDownTimer(2020, 3, 10);
-            tryMe.daysToGo("1/10/2020");
+            GeoCountDownTimer tryMe = new GeoCountDownTimer(2020, 3, 1);
+            tryMe.daysToGo("2/28/2020");
 
          //testing daysToGo() method in a case that it is not leap year
-            GeoCountDownTimer tryMe2 = new GeoCountDownTimer(2019, 3, 10);
-            tryMe2.daysToGo("1/10/2019");
+            GeoCountDownTimer tryMe2 = new GeoCountDownTimer(2019, 3, 1);
+            tryMe2.daysToGo("2/28/2019");
+
+         //testing daysToGo() for multiple leap year days
+            GeoCountDownTimer tryMe10 = new GeoCountDownTimer(2020, 3, 1);
+            tryMe10.daysToGo("3/1/2019");
+
+         //testing daysToGo() for the correct number of days in a year
+            GeoCountDownTimer tryMe11 = new GeoCountDownTimer(2022, 3, 1);
+            tryMe11.daysToGo("3/1/2021");
 
          //testing daysInFuture() method with positive n
             GeoCountDownTimer tryMe3 = new GeoCountDownTimer(2019, 3, 10);

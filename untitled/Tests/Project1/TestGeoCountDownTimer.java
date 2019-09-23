@@ -48,7 +48,7 @@ public class TestGeoCountDownTimer {
      * testing constructor 3 for illegal date(leap year)
      * AssertionError expected
      ****************************************************************************************************/
-    @Test(expected = AssertionError.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testConstructor3() {
         GeoCountDownTimer s = new GeoCountDownTimer("2/29/2019");
         assertEquals("Test for constructor 3 failed", "2/29/20", s.toDateString());
@@ -349,6 +349,107 @@ public class TestGeoCountDownTimer {
         assertEquals("Wrong year outputted", 2020, s1.getYear());
     }
 
+    /****************************************************************************************************
+     *testDaysToGo()
+     * tests daysToGo() method for right output
+     ****************************************************************************************************/
+    @Test
+    public void testDaysToGo() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019,2,9);
+        assertTrue (s1.daysToGo("2/1/2019") == 8);
+        assertTrue (s1.daysToGo("2/8/2019") == 1);
+        assertTrue (s1.daysToGo("2/9/2019") == 0);
+    }
+
+    /****************************************************************************************************
+     *testDaysToGo2()
+     * tests daysToGo() method for right output when rolling over the months
+     ****************************************************************************************************/
+    @Test
+    public void testDaysToGo2() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2019,2,5);
+        assertTrue (s1.daysToGo("1/31/2019") == 5);
+        assertTrue (s1.daysToGo("1/30/2019") == 6);
+        assertTrue (s1.daysToGo("1/24/2019") == 12);
+    }
+
+    /****************************************************************************************************
+     *testDaysToGo3()
+     * tests daysToGo() method for right output when rolling over the months in case if a leap year
+     ****************************************************************************************************/
+    @Test
+    public void testDaysToGo3() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2020,3,1);
+        assertTrue (s1.daysToGo("2/28/2020") == 2);
+        assertTrue (s1.daysToGo("2/29/2020") == 1);
+    }
+
+    /****************************************************************************************************
+     *testDaysToGo4()
+     * tests daysToGo() method for right output when going over into a different year that is a leap year
+     ****************************************************************************************************/
+    @Test
+    public void testDaysToGo4() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2020,3,1);
+        GeoCountDownTimer s2 = new GeoCountDownTimer(2020, 3, 2);
+        assertTrue (s1.daysToGo("3/1/2019") == 366);
+        assertTrue(s2.daysToGo("3/1/2019") == 367);
+    }
+
+    /****************************************************************************************************
+     *testDaysToGo5()
+     * tests daysToGo() method for right output when going over into a different year that is not a leap year
+     ****************************************************************************************************/
+    @Test
+    public void testDaysToGo5() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2022,3,1);
+        assertTrue (s1.daysToGo("3/1/2021") == 365);
+    }
+
+    /****************************************************************************************************
+     *testDaysInFuture()
+     * tests daysInFuture() method for right output when positive n
+     ****************************************************************************************************/
+    @Test
+    public void testDaysInFuture() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2022,3,1);
+        assertEquals("Days in future failed", "3/5/2022", s1.daysInFuture(4).toDateString());
+    }
+
+    /****************************************************************************************************
+     *testDaysInFuture2()
+     * tests daysInFuture() method for right output when negative input parameter int n
+     ****************************************************************************************************/
+    @Test
+    public void testDaysInFuture2() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2022,3,10);
+        assertEquals("Days in future failed", "3/5/2022", s1.daysInFuture(-5).toDateString());
+    }
+
+    /****************************************************************************************************
+     *testDaysInFuture3()
+     * tests daysInFuture() method for right output when positive input parameter int n
+     * in case of a leap year
+     ****************************************************************************************************/
+    @Test
+    public void testDaysInFuture3() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2020,2,28);
+        assertEquals("Days in future failed", "2/29/2020", s1.daysInFuture(1).toDateString());
+    }
+
+    /****************************************************************************************************
+     *testDaysInFuture4()
+     * tests daysInFuture() method for right output when positive input parameter n
+     * in case of a leap year
+     ****************************************************************************************************/
+    @Test
+    public void testDaysInFuture4() {
+        GeoCountDownTimer s1 = new GeoCountDownTimer(2020,3,1);
+        assertEquals("Days in future failed", "2/29/2020", s1.daysInFuture(-1).toDateString());
+    }
+
+
+
 
 
     //test loadSave() method
@@ -363,57 +464,48 @@ public class TestGeoCountDownTimer {
 //		assertTrue (s2.equals(s1));
 //	}
 //
-//	@Test
-//	public void testDaysToGo () {
-//		GeoCountDownTimer s1 = new GeoCountDownTimer(2,9,2015);
-//		assertTrue (s1.daysToGo("2/1/2015") == 8);
-//		assertTrue (s1.daysToGo("2/8/2015") == 1);
-//		assertTrue (s1.daysToGo("2/9/2015") == 0);
+
 //
-//		s1 = new GeoCountDownTimer(2,9,5015);
-//		System.out.println (s1.daysToGo("2/9/2015"));
-//	}
-
-        public void sampleReadData () {
-            int year;
-            int month;
-            int day;
-
-            try {
-                // open the data file
-                Scanner fileReader = new Scanner(new File("/testit"));
-                Scanner lineReader;
-
-                // read several int for year, month, and day
-                year = fileReader.nextInt();
-                month = fileReader.nextInt();
-                day = fileReader.nextInt();
-                System.out.println(year + " " + month + " " + day);
-            }
-
-            // could not find file
-            catch (FileNotFoundException error) {
-                System.out.println("File not found ");
-            }
-
-            // problem reading the fil
-            catch (IOException error) {
-                System.out.println("Oops!  Something went wrong.");
-            }
-        }
-
-        public void sampleWriteData() {
-            PrintWriter out = null;
-            try {
-                out = new PrintWriter(new BufferedWriter(new FileWriter("/testit")));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String s = "ANCHORAGE";
-            out.println(s + " " + "256000");
-            out.close();
-
-        }
+//        public void sampleReadData () {
+//            int year;
+//            int month;
+//            int day;
+//
+//            try {
+//                // open the data file
+//                Scanner fileReader = new Scanner(new File("/testit"));
+//                Scanner lineReader;
+//
+//                // read several int for year, month, and day
+//                year = fileReader.nextInt();
+//                month = fileReader.nextInt();
+//                day = fileReader.nextInt();
+//                System.out.println(year + " " + month + " " + day);
+//            }
+//
+//            // could not find file
+//            catch (FileNotFoundException error) {
+//                System.out.println("File not found ");
+//            }
+//
+//            // problem reading the fil
+//            catch (IOException error) {
+//                System.out.println("Oops!  Something went wrong.");
+//            }
+//        }
+//
+//        public void sampleWriteData() {
+//            PrintWriter out = null;
+//            try {
+//                out = new PrintWriter(new BufferedWriter(new FileWriter("/testit")));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            String s = "ANCHORAGE";
+//            out.println(s + " " + "256000");
+//            out.close();
+//
+//        }
 
         public static void main(String[] args) {
 
