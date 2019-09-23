@@ -17,8 +17,8 @@ public class MyTimerPanel extends JPanel{
 //    private JButton button;
 //
 //    public MyTimerPanel() {
-//        geoCountDownTimer = new GeoCountDownTimer(12,10,2019);
-//        geoCountDownTimer2 = new GeoCountDownTimer(5,12,2019);
+//        geoCountDownTimer = new GeoCountDownTimer(2019,12,10);
+//        geoCountDownTimer2 = new GeoCountDownTimer(2019,5,12);
 //        timer = new TimerListener();
 //        label = new JLabel("");
 //        add (label);
