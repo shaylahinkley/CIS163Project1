@@ -898,9 +898,9 @@ public class TestGeoCountDownTimer {
 		GeoCountDownTimer s1 = new GeoCountDownTimer(2019,5,9);
 		GeoCountDownTimer s2 = new GeoCountDownTimer(2019,5,9);
 
-		s1.save("file1");
+		s1.save("/Users/shaylahinkley/IdeaProjects/CIS163Project1/testLoadSave1.txt");
 		s1 = new GeoCountDownTimer(2019,1,1);  // resets to zero
-    	s1.load("file1");
+    	s1.load("/Users/shaylahinkley/IdeaProjects/CIS163Project1/testLoadSave1.txt");
 		assertTrue (s2.equals(s1));
 	}
 

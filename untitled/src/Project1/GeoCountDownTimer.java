@@ -584,11 +584,12 @@ public class GeoCountDownTimer {
             // open the data file
             Scanner fileReader = new Scanner(new File(fileName));
 
-            // read one String in of data and an int
-            this.month = fileReader.nextInt();
-            this.day = fileReader.nextInt();
-            this.year = fileReader.nextInt();
-            System.out.println(this.month + "/" + this.day + "/" + this.year);
+            //reads the file into a String
+            String readFile = fileReader.nextLine();
+
+            //creates a GeoCountDownTimer out of the date
+            GeoCountDownTimer readDate = new GeoCountDownTimer(readFile);
+            GeoCountDownTimer(readDate);
         }
 
         // could not find file
@@ -914,6 +915,14 @@ public class GeoCountDownTimer {
             GeoCountDownTimer tryMe8 = new GeoCountDownTimer(2020, 3, 5);
             System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe8.daysInFuture((-5)).toDateString());
 
+            //testing save method
             tryMe8.save("/Users/shaylahinkley/IdeaProjects/CIS163Project1/example.txt");
+
+            //testing load method
+            GeoCountDownTimer load1 = new GeoCountDownTimer(2019, 5, 9);
+            load1.save("/Users/shaylahinkley/IdeaProjects/CIS163Project1/load4.txt");
+            load1 = new GeoCountDownTimer(2019, 1, 1);
+            load1.load("/Users/shaylahinkley/IdeaProjects/CIS163Project1/load4.txt");
+            System.out.println("Expecting 5/9/2019 \tactual date: " + load1.toDateString());
     }
 }
