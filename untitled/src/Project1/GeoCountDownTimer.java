@@ -913,5 +913,7 @@ public class GeoCountDownTimer {
             //with negative n, going over a non leap year
             GeoCountDownTimer tryMe8 = new GeoCountDownTimer(2020, 3, 5);
             System.out.println("Expected date: 2/28/2020 \tfuture date: " + tryMe8.daysInFuture((-5)).toDateString());
+
+            tryMe8.save("/Users/shaylahinkley/IdeaProjects/CIS163Project1/example.txt");
     }
 }
