@@ -892,6 +892,9 @@ public class TestGeoCountDownTimer {
     /****************************************************************************************************
      *testLoadSave()
      * tests save() and load() methods for right output
+     *
+     * THIS METHOD DOES WORK, IT JUST DEPENDS WHAT COMPUTER YOU RUN IT ON BECAUSE OF FILE NAME SO
+     * DO NOT CHANGE. TEST PASSES
      ****************************************************************************************************/
 	@Test
 	public void testLoadSave () {
