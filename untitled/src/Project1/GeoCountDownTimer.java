@@ -1,6 +1,10 @@
 package Project1;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
@@ -81,22 +85,20 @@ public class GeoCountDownTimer {
         String yr = "";
         String mon = "";
         String dy = "";
-        int z = 0;
-        int y = 0;
-        int x = 0;
+        int firstIndex = 0;
         int lastIndex = 0;
 
         //finds first index of '/' for month
-        z = startDate.indexOf('/');
+        firstIndex = startDate.indexOf('/');
 
         //creates month substring from index 0 up until index of '/'
-        mon = startDate.substring(0, z);
+        mon = startDate.substring(0, firstIndex);
 
         //looks for last index of '/'
         lastIndex = startDate.lastIndexOf('/');
 
         //creates day substring from first index of '/' until the last index of '/'
-        dy = startDate.substring(z + 1, lastIndex);
+        dy = startDate.substring(firstIndex + 1, lastIndex);
 
         //creates year substring form last known index of '/' to the end of the string
         yr = startDate.substring(lastIndex + 1);
@@ -333,7 +335,7 @@ public class GeoCountDownTimer {
         }
 
         //if years are the same
-        else if (this.year == other.year) {
+        else{
 
             //checks month and returns -1 if the month is smaller
             if (this.month < other.month) {
@@ -380,8 +382,6 @@ public class GeoCountDownTimer {
      * Method that subtracts 1 day from this GeoCountDownTimer object date
      *****************************************************************************************************/
     public void dec() {
-
-        int isLeapYear = 0;
 
         //if it is leap year and the month is Match
         if (isLeapYear(this.year) && this.month == 3 && this.day == 1) {
@@ -469,8 +469,8 @@ public class GeoCountDownTimer {
      * @return String s
      *****************************************************************************************************/
     public String toString() {
-        String s = MONTHS[this.month] + " " + this.day + ", " + this.year;
-        return s;
+        String comma = MONTHS[this.month] + " " + this.day + ", " + this.year;
+        return comma;
     }
 
     /*****************************************************************************************************
@@ -604,13 +604,11 @@ public class GeoCountDownTimer {
      * @return int totDaysBetween
      *************************************************************************************************/
     public int daysToGo(String fromDate) {
-        String date = fromDate;
+
         String yr = "";
         String mon = "";
         String dy = "";
         int z = 0;
-        int y = 0;
-        int x = 0;
         int lastIndex = 0;
 
         //finds first index of '/' for month
