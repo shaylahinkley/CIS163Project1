@@ -35,7 +35,7 @@ public class GeoCountDownTimer {
     /****************************************************************************************************
      * Private constructor that sets GeoCountDownTimer to zero
      ****************************************************************************************************/
-    private GeoCountDownTimer() {
+    public GeoCountDownTimer() {
         year = 0;
         month = 0;
         day = 0;
