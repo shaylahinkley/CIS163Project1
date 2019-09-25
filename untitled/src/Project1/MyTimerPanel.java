@@ -67,6 +67,8 @@ public class MyTimerPanel extends JPanel {
         reset1.addActionListener(new ButListener());
         Increase1.addActionListener(new ButListener());
         decrease1.addActionListener(new ButListener());
+        save1.addActionListener(new ButListener());
+        load1.addActionListener(new ButListener());
 
 
 // There is a problem here, your demonstration of your program could take years.  So, you can
@@ -115,11 +117,25 @@ public class MyTimerPanel extends JPanel {
                 geoCountDownTimer1.dec();
                 display1.setText(geoCountDownTimer1.toDateString());
 //                geoCountDownTimer1 = new GeoCountDownTimer(2019,1,-1);
+            }
+            if(e.getSource() == save1){
+                geoCountDownTimer1.save("/Users/keilanibailey/Desktop/CIS163/CIS163Project1/timer1.txt");
+//                JFileChooser save1 = new JFileChooser();
 
+                display1.setText(geoCountDownTimer1.toDateString());
+                System.out.println(geoCountDownTimer1+" "+"is "+"Saved");
+            }
+            if(e.getSource() == load1){
+                geoCountDownTimer1.load("/Users/keilanibailey/Desktop/CIS163/CIS163Project1/timer1.txt");
+//                JFileChooser save1 = new JFileChooser();
+
+                display1.setText(geoCountDownTimer1.toDateString());
             }
 
         }
 
+    }
+    public void printTextField(String text) {
     }
 
     public static void  main(String[] args) {
