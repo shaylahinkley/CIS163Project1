@@ -41,8 +41,8 @@ public class MyTimerPanel extends JPanel {
         // this calls timer object 10 times per second
         javaTimer1 = new Timer(10, timer1);
 
-        JPanel GeoCoundown1 = new JPanel();
-        GeoCoundown1.setLayout(new FlowLayout());
+        JPanel GeoCountdown1 = new JPanel();
+        GeoCountdown1.setLayout(new FlowLayout());
         start1 = new JButton("Start");
         stop1 = new JButton("Stop");
         reset1 = new JButton("Reset");
@@ -52,16 +52,16 @@ public class MyTimerPanel extends JPanel {
         decrease1 = new JButton("Dec");
         display1 = new JLabel("");
 
-        GeoCoundown1.add(display1);
-        GeoCoundown1.add(start1);
-        GeoCoundown1.add(stop1);
-        GeoCoundown1.add(reset1);
-        GeoCoundown1.add(Increase1);
-        GeoCoundown1.add(decrease1);
-        GeoCoundown1.add(save1);
-        GeoCoundown1.add(load1);
+        GeoCountdown1.add(display1);
+        GeoCountdown1.add(start1);
+        GeoCountdown1.add(stop1);
+        GeoCountdown1.add(reset1);
+        GeoCountdown1.add(Increase1);
+        GeoCountdown1.add(decrease1);
+        GeoCountdown1.add(save1);
+        GeoCountdown1.add(load1);
 
-        add(GeoCoundown1);
+        add(GeoCountdown1);
         start1.addActionListener(new ButListener());
         stop1.addActionListener(new ButListener());
         reset1.addActionListener(new ButListener());
